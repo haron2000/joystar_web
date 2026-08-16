@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}News — {{ site.school_name }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/components.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="section">
+  <div class="container section-head" style="max-width: 720px;">
+    <span class="eyebrow" style="justify-content:center;"><span class="blk" style="background: var(--red);"></span>News</span>
+    <h1>Latest from Joystar Academy</h1>
+    <p style="color: var(--text-muted);">Updates, announcements and stories from across the school.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+
+    <div class="filter-pills">
+      <a href="{% url 'news:list' %}" class="filter-pill {% if not active_category %}is-active{% endif %}">All</a>
+      {% for cat in categories %}
+        <a href="?category={{ cat.slug }}" class="filter-pill {% if active_category == cat.slug %}is-active{% endif %}">{{ cat.name }}</a>
+      {% endfor %}
+    </div>
+
+    <div class="card-grid cols-3">
+      {% for post in posts %}
+        <a href="{{ post.get_absolute_url }}" class="news-card">
+          <div class="thumb" {% if post.cover_image %}style="background-image: url('{{ post.cover_image.url }}');"{% endif %}></div>
+          <div class="body">
+            {% if post.category %}<span class="news-badge">{{ post.category.name }}</span>{% endif %}
+            <h3>{{ post.title }}</h3>
+            <p style="color: var(--text-muted); font-size: var(--fs-sm); margin: 0 0 8px;">{{ post.excerpt|truncatechars:90 }}</p>
+            <div class="news-meta">{{ post.published_at|date:"d M Y" }} · {{ post.author_name }}</div>
+          </div>
+        </a>
+      {% empty %}
+        <p style="color: var(--text-muted); grid-column: 1 / -1; text-align:center; padding: var(--space-xl) 0;">No news posts yet — check back soon.</p>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/reveal.js' %}" defer></script>
+{% endblock %}

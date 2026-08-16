@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contact Us — {{ site.school_name }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/components.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- PAGE INTRO -->
+<section class="section">
+  <div class="container section-head" style="max-width: 720px;">
+    <span class="eyebrow" style="justify-content:center;">
+      <span class="blk" style="background: var(--green);"></span>Contact
+    </span>
+    <h1>We'd love to hear from you</h1>
+    <p style="color: var(--text-muted);">
+      Questions about admissions, a programme, or just want to say hello? Reach out below or visit us in person.
+    </p>
+  </div>
+</section>
+
+<!-- CONTACT DETAILS + FORM + MAP -->
+<section class="section section-tint reveal">
+  <div class="container">
+    <div class="contact-grid">
+
+      <div>
+        <span class="eyebrow"><span class="blk" style="background: var(--red);"></span>Get in Touch</span>
+
+        <div class="card" style="margin-bottom: var(--space-md);">
+          <p style="margin-bottom: 10px;"><i class="ti ti-phone" aria-hidden="true"></i> <a href="tel:{{ site.phone }}" style="text-decoration:none; font-weight:600; color: var(--ink);">{{ site.phone }}</a></p>
+          {% if site.email %}
+            <p style="margin-bottom: 10px;"><i class="ti ti-mail" aria-hidden="true"></i> <a href="mailto:{{ site.email }}" style="text-decoration:none; font-weight:600; color: var(--ink);">{{ site.email }}</a></p>
+          {% endif %}
+          <p style="margin: 0;"><i class="ti ti-map-pin" aria-hidden="true"></i> {{ site.address }}</p>
+        </div>
+
+        <form method="post" novalidate style="display:grid; gap: 12px;">
+          {% csrf_token %}
+          <input type="text" name="name" placeholder="Your name" required
+                 style="padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(22,25,27,0.15); font-family: inherit; font-size: var(--fs-sm);">
+          <input type="email" name="email" placeholder="Email address" required
+                 style="padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(22,25,27,0.15); font-family: inherit; font-size: var(--fs-sm);">
+          <input type="tel" name="phone" placeholder="Phone number (optional)"
+                 style="padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(22,25,27,0.15); font-family: inherit; font-size: var(--fs-sm);">
+          <input type="text" name="subject" placeholder="Subject (optional)"
+                 style="padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(22,25,27,0.15); font-family: inherit; font-size: var(--fs-sm);">
+          <textarea name="message" rows="4" placeholder="Your message" required
+                    style="padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(22,25,27,0.15); font-family: inherit; font-size: var(--fs-sm); resize: vertical;"></textarea>
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send Message</button>
+        </form>
+      </div>
+
+      <iframe
+        class="map-frame"
+        src="https://www.google.com/maps?q={{ site.address|urlencode }}&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Map showing {{ site.school_name }} location">
+      </iframe>
+
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<section class="section reveal">
+  <div class="container" style="text-align:center;">
+    <span class="eyebrow" style="justify-content:center;"><span class="blk" style="background: var(--green);"></span>Follow Us</span>
+    <h2>Stay connected</h2>
+    <div class="social-icons" style="justify-content:center; margin-top: var(--space-md);">
+      {% if site.facebook_url %}<a href="{{ site.facebook_url }}" aria-label="Facebook" style="background: var(--paper-tint); color: var(--ink);"><i class="ti ti-brand-facebook" aria-hidden="true"></i></a>{% endif %}
+      {% if site.instagram_url %}<a href="{{ site.instagram_url }}" aria-label="Instagram" style="background: var(--paper-tint); color: var(--ink);"><i class="ti ti-brand-instagram" aria-hidden="true"></i></a>{% endif %}
+      {% if site.tiktok_url %}<a href="{{ site.tiktok_url }}" aria-label="TikTok" style="background: var(--paper-tint); color: var(--ink);"><i class="ti ti-brand-tiktok" aria-hidden="true"></i></a>{% endif %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/reveal.js' %}" defer></script>
+{% endblock %}

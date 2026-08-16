@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/components.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<div class="container">
+  <div class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">
+        <span class="blk" style="background: var(--red);"></span>
+        <span class="blk" style="background: var(--ink);"></span>
+        <span class="blk" style="background: var(--green);"></span>
+        Welcome to
+      </span>
+      <h1>{{ site.school_name }}</h1>
+      <p style="font-family: var(--font-display); font-style: italic; color: var(--ink-soft); font-size: var(--fs-md);">{{ site.motto }}</p>
+      <span class="hero-badge">Admissions Open</span>
+      <p>{{ site.mission }}</p>
+      <div class="hero-actions">
+        <a href="{% url 'admissions:admissions' %}" class="btn btn-primary">Apply Now</a>
+        <a href="{% url 'admissions:admissions' %}" class="btn btn-outline">Book a Visit</a>
+      </div>
+    </div>
+
+    <div class="hero-slider" data-hero-slider>
+      {% for slide in hero_slides %}
+        <div class="hero-slide {% if forloop.first %}is-active{% endif %}">
+          <img src="{{ slide.image.url }}" alt="{{ slide.caption }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+        </div>
+      {% endfor %}
+      <button class="hero-arrow prev" aria-label="Previous slide"><i class="ti ti-chevron-left" aria-hidden="true"></i></button>
+      <button class="hero-arrow next" aria-label="Next slide"><i class="ti ti-chevron-right" aria-hidden="true"></i></button>
+      <div class="hero-dots"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section section-tint reveal">
+  <div class="container" style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items:center;">
+    <div>
+      <span class="eyebrow"><span class="blk" style="background: var(--red);"></span>About Us</span>
+      <h2>A place to grow, explore and belong</h2>
+      <p style="color: var(--text-muted);">{{ site.philosophy }}</p>
+      <div class="stats-strip" style="grid-template-columns: repeat(3, 1fr); text-align:left; margin-top: var(--space-lg);">
+        {% for stat in stats|slice:":3" %}
+          <div>
+            <div class="stat-number"><span data-counter="{{ stat.value }}" data-suffix="{{ stat.suffix }}">0{{ stat.suffix }}</span></div>
+            <div class="stat-label">{{ stat.label }}</div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div>
+      <p style="color: var(--text-muted);"><strong style="color: var(--ink);">Our vision:</strong> {{ site.vision }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="section reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow" style="justify-content:center;"><span class="blk" style="background: var(--green);"></span>Why Choose Us</span>
+      <h2>Everything your child needs to thrive</h2>
+    </div>
+    <div class="card-grid cols-3">
+      {% for item in why_choose_us %}
+        <div class="card">
+          <div class="blk-stack" style="margin-bottom: 10px;">
+            <span class="blk" style="background: var(--red);"></span>
+            <span class="blk" style="background: var(--red); opacity:0.5; margin-left:-4px; margin-top:5px;"></span>
+          </div>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ACADEMIC PROGRAMMES -->
+<section class="section section-tint reveal">
+  <div class="container">
+    <span class="eyebrow"><span class="blk" style="background: var(--red);"></span>Academic Programmes</span>
+    <h2>From Playgroup to Junior School</h2>
+    <div style="margin-top: var(--space-md);">
+      {% for p in programmes %}
+        <span class="chip" {% if p.stage == "junior_school" %}style="background: var(--red-tint); color: var(--red-deep);"{% endif %}>{{ p.name }}</span>
+      {% endfor %}
+    </div>
+    <a href="{% url 'academics:academics' %}" class="btn btn-outline" style="margin-top: var(--space-md);">Explore Academics</a>
+  </div>
+</section>
+
+<!-- CLUBS -->
+<section class="section reveal">
+  <div class="container">
+    <span class="eyebrow"><span class="blk" style="background: var(--green);"></span>Clubs &amp; Co-curricular</span>
+    <h2>Beyond the classroom</h2>
+    <div class="card-grid cols-4" style="margin-top: var(--space-md);">
+      {% for club in clubs %}
+        <div class="card" style="text-align:center;">
+          <h3 style="font-size: var(--fs-sm);">{{ club.name }}</h3>
+        </div>
+      {% endfor %}
+    </div>
+    <a href="{% url 'clubs:clubs' %}" class="btn btn-outline" style="margin-top: var(--space-md);">View All Clubs &amp; Sports</a>
+  </div>
+</section>
+
+<!-- SCHOOL PROMISE -->
+<section class="section promise-band reveal">
+  <div class="container">
+    <span class="eyebrow" style="color: var(--gold);"><span class="blk" style="background: var(--red);"></span>Our Promise</span>
+    <ul class="promise-list">
+      {% for item in promise_items %}
+        <li><span class="blk" style="background: {% cycle 'var(--red)' 'var(--green)' 'var(--gold)' %};"></span>{{ item.text }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<!-- EVENTS + NEWS PREVIEW -->
+<section class="section reveal">
+  <div class="container" style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl);">
+    <div>
+      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom: var(--space-md);">
+        <span class="eyebrow" style="margin:0;"><span class="blk" style="background: var(--green);"></span>Upcoming Events</span>
+        <a href="{% url 'events:list' %}" style="color: var(--red); font-weight:600; font-size: var(--fs-sm); text-decoration:none;">View all →</a>
+      </div>
+      {% for event in upcoming_events %}
+        <a href="{{ event.get_absolute_url }}" class="preview-card" style="display:flex; gap: var(--space-sm); margin-bottom: var(--space-sm); border-bottom: var(--border-hair); padding-bottom: var(--space-sm);">
+          <div style="width:70px; height:70px; background: var(--paper-tint); border-radius: var(--radius-sm); flex-shrink:0;"
+               {% if event.cover_image %}style="background-image:url('{{ event.cover_image.url }}'); background-size:cover; background-position:center; width:70px; height:70px; border-radius: var(--radius-sm);"{% endif %}></div>
+          <div>
+            <div class="preview-date">{{ event.date|date:"d M Y" }}</div>
+            <h3 style="font-size: var(--fs-sm); margin: 2px 0;">{{ event.title }}</h3>
+            <p style="font-size: var(--fs-xs); color: var(--text-muted); margin:0;">{{ event.venue }}</p>
+          </div>
+        </a>
+      {% empty %}
+        <p style="color: var(--text-muted);">No upcoming events yet — check back soon.</p>
+      {% endfor %}
+    </div>
+
+    <div>
+      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom: var(--space-md);">
+        <span class="eyebrow" style="margin:0;"><span class="blk" style="background: var(--red);"></span>Latest News</span>
+        <a href="{% url 'news:list' %}" style="color: var(--red); font-weight:600; font-size: var(--fs-sm); text-decoration:none;">View all →</a>
+      </div>
+      {% for post in latest_news %}
+        <a href="{{ post.get_absolute_url }}" class="preview-card" style="display:flex; gap: var(--space-sm); margin-bottom: var(--space-sm); border-bottom: var(--border-hair); padding-bottom: var(--space-sm);">
+          <div style="width:70px; height:70px; background: var(--paper-tint); border-radius: var(--radius-sm); flex-shrink:0;"
+               {% if post.cover_image %}style="background-image:url('{{ post.cover_image.url }}'); background-size:cover; background-position:center; width:70px; height:70px; border-radius: var(--radius-sm);"{% endif %}></div>
+          <div>
+            <div class="preview-date">{{ post.published_at|date:"d M Y" }}</div>
+            <h3 style="font-size: var(--fs-sm); margin: 2px 0;">{{ post.title }}</h3>
+            <p style="font-size: var(--fs-xs); color: var(--text-muted); margin:0;">{{ post.excerpt|truncatechars:60 }}</p>
+          </div>
+        </a>
+      {% empty %}
+        <p style="color: var(--text-muted);">No news posts yet — check back soon.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section section-tint reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow" style="justify-content:center;"><span class="blk" style="background: var(--red);"></span>What Parents Say</span>
+      <h2>Trusted by our school community</h2>
+    </div>
+    <div class="testimonial-slider" data-testimonials>
+      {% for t in testimonials %}
+        <div class="testimonial-slide {% if forloop.first %}is-active{% endif %}">
+          <p class="testimonial-quote">&ldquo;{{ t.quote }}&rdquo;</p>
+          <p class="testimonial-author">{{ t.author_name }} — {{ t.role }}</p>
+        </div>
+      {% endfor %}
+      <div class="testimonial-dots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSIONS CTA -->
+<section class="section">
+  <div class="container">
+    <div class="cta-band reveal">
+      <div>
+        <h2>Admissions are open</h2>
+        <p style="margin:0; opacity:0.9;">Playgroup through Junior School — book a visit today.</p>
+      </div>
+      <a href="{% url 'admissions:admissions' %}" class="btn btn-white">Apply Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section section-tint reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow" style="justify-content:center;"><span class="blk" style="background: var(--green);"></span>Get in Touch</span>
+      <h2>Visit or contact us</h2>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <p><i class="ti ti-phone" aria-hidden="true"></i> <a href="tel:{{ site.phone }}">{{ site.phone }}</a></p>
+        {% if site.email %}<p><i class="ti ti-mail" aria-hidden="true"></i> <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>{% endif %}
+        <p><i class="ti ti-map-pin" aria-hidden="true"></i> {{ site.address }}</p>
+        <a href="{% url 'contact:contact' %}" class="btn btn-primary" style="margin-top: var(--space-sm);">Send a Message</a>
+      </div>
+      <iframe
+        class="map-frame"
+        src="https://www.google.com/maps?q={{ site.address|urlencode }}&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Map showing {{ site.school_name }} location">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/slideshow.js' %}" defer></script>
+<script src="{% static 'js/reveal.js' %}" defer></script>
+<script src="{% static 'js/counters.js' %}" defer></script>
+<script src="{% static 'js/testimonials.js' %}" defer></script>
+{% endblock %}

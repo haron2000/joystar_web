@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Admissions — {{ site.school_name }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/components.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- PAGE INTRO -->
+<section class="section">
+  <div class="container section-head" style="max-width: 720px;">
+    <span class="eyebrow" style="justify-content:center;">
+      <span class="blk" style="background: var(--red);"></span>Admissions
+    </span>
+    <h1>Join the Joystar family</h1>
+    <p style="color: var(--text-muted);">
+      Playgroup through Junior School — we'd love to welcome your child. Apply online or book a visit to tour our campus first.
+    </p>
+  </div>
+</section>
+
+<!-- STEPS + FORM -->
+<section class="section section-tint reveal">
+  <div class="container" style="display:grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-xl); align-items:start;">
+
+    <!-- Steps timeline -->
+    <div>
+      <span class="eyebrow"><span class="blk" style="background: var(--green);"></span>How to Apply</span>
+      <h2 style="margin-bottom: var(--space-md);">A simple, guided process</h2>
+
+      {% for step in steps %}
+        <div style="display:flex; gap: var(--space-sm); margin-bottom: var(--space-md);">
+          <span style="flex-shrink:0; width:32px; height:32px; border-radius:50%; background: var(--red); color:#fff; font-weight:700; font-size: var(--fs-sm); display:flex; align-items:center; justify-content:center;">
+            {{ step.step_number }}
+          </span>
+          <div>
+            <h3 style="font-size: var(--fs-md); margin-bottom:2px;">{{ step.title }}</h3>
+            <p style="color: var(--text-muted); margin:0;">{{ step.description }}</p>
+          </div>
+        </div>
+      {% endfor %}
+
+      {% if documents %}
+        <div class="card" style="margin-top: var(--space-lg);">
+          <span class="eyebrow"><span class="blk" style="background: var(--red);"></span>Required Documents</span>
+          <ul style="margin:0; padding-left: 20px; color: var(--text-muted);">
+            {% for doc in documents %}
+              <li style="margin-bottom: 6px;">{{ doc.name }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Application / visit form -->
+    <div class="card" id="apply-form">
+      <span class="eyebrow"><span class="blk" style="background: var(--green);"></span>Apply or Book a Visit</span>
+
+      <form method="post" novalidate style="display:grid; gap: 12px; margin-top: var(--space-sm);">
+        {% csrf_token %}
+
+        <div style="display:flex; gap: 16px;">
+          <label style="display:flex; align-items:center; gap:6px; font-size: var(--fs-sm); cursor:pointer;">
+            <input type="radio" name="request_type" value="apply" checked> Apply Now
+          </label>
+          <label style="display:flex; align-items:center; gap:6px; font-size: var(--fs-sm); cursor:pointer;">
+            <input type="radio" name="request_type" value="visit"> Book a Visit
+          </label>
+        </div>
+
+        <input type="text" name="parent_name" placeholder="Parent / Guardian name" required
+               style="padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(22,25,27,0.15); font-family: inherit; font-size: var(--fs-sm);">
+
+        <input type="email" name="email" placeholder="Email address" required
+               style="padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(22,25,27,0.15); font-family: inherit; font-size: var(--fs-sm);">
+
+        <input type="tel" name="phone" placeholder="Phone number" required
+               style="padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(22,25,27,0.15); font-family: inherit; font-size: var(--fs-sm);">
+
+        <input type="text" name="child_name" placeholder="Child's name (optional)"
+               style="padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(22,25,27,0.15); font-family: inherit; font-size: var(--fs-sm);">
+
+        <select name="desired_programme"
+                style="padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(22,25,27,0.15); font-family: inherit; font-size: var(--fs-sm); background: #fff;">
+          <option value="">Desired programme (optional)</option>
+          {% for p in programmes %}
+            <option value="{{ p.name }}">{{ p.name }}</option>
+          {% endfor %}
+        </select>
+
+        <input type="date" name="preferred_date"
+               style="padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(22,25,27,0.15); font-family: inherit; font-size: var(--fs-sm);">
+
+        <textarea name="message" rows="3" placeholder="Anything else you'd like us to know? (optional)"
+                  style="padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(22,25,27,0.15); font-family: inherit; font-size: var(--fs-sm); resize: vertical;"></textarea>
+
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Submit Request</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section reveal">
+  <div class="container" style="text-align:center;">
+    <span class="eyebrow" style="justify-content:center;"><span class="blk" style="background: var(--green);"></span>Questions?</span>
+    <h2>We're happy to help</h2>
+    <p style="color: var(--text-muted);">Call us on <a href="tel:{{ site.phone }}" style="color: var(--green); font-weight:600;">{{ site.phone }}</a> or send us a message.</p>
+    <a href="{% url 'contact:contact' %}" class="btn btn-outline">Contact Us</a>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/reveal.js' %}" defer></script>
+{% endblock %}

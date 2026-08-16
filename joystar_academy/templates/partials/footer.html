@@ -1,0 +1,38 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4 style="font-family: var(--font-display); font-size: var(--fs-md); color: var(--green-light);">{{ site.school_name }}</h4>
+        <p>{{ site.motto }}</p>
+        <div class="social-icons">
+          {% if site.facebook_url %}<a href="{{ site.facebook_url }}" aria-label="Facebook"><i class="ti ti-brand-facebook" aria-hidden="true"></i></a>{% endif %}
+          {% if site.instagram_url %}<a href="{{ site.instagram_url }}" aria-label="Instagram"><i class="ti ti-brand-instagram" aria-hidden="true"></i></a>{% endif %}
+          {% if site.tiktok_url %}<a href="{{ site.tiktok_url }}" aria-label="TikTok"><i class="ti ti-brand-tiktok" aria-hidden="true"></i></a>{% endif %}
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <p><a href="{% url 'core:about' %}">About</a></p>
+        <p><a href="{% url 'admissions:admissions' %}">Admissions</a></p>
+        <p><a href="{% url 'academics:academics' %}">Academics</a></p>
+        <p><a href="{% url 'gallery:gallery' %}">Gallery</a></p>
+      </div>
+      <div>
+        <h4>More</h4>
+        <p><a href="{% url 'clubs:clubs' %}">Clubs</a></p>
+        <p><a href="{% url 'events:list' %}">Events</a></p>
+        <p><a href="{% url 'news:list' %}">News</a></p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>{{ site.phone }}</p>
+        <p>{{ site.address }}</p>
+        <p><a href="{% url 'contact:contact' %}">Send a message →</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; {% now "Y" %} {{ site.school_name }}. All rights reserved.</span>
+      <span>Creating a Firm Foundation</span>
+    </div>
+  </div>
+</footer>

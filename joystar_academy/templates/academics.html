@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Academics — {{ site.school_name }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/components.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- PAGE INTRO -->
+<section class="section">
+  <div class="container section-head" style="max-width: 720px;">
+    <span class="eyebrow" style="justify-content:center;">
+      <span class="blk" style="background: var(--green);"></span>Academics
+    </span>
+    <h1>A competency-based curriculum built for confident learners</h1>
+    <p style="color: var(--text-muted);">
+      From Playgroup to Grade 6, our CBC approach blends strong academics with hands-on discovery,
+      giving every child room to grow at their own pace.
+    </p>
+  </div>
+</section>
+
+<!-- PROGRAMMES -->
+<section class="section section-tint reveal">
+  <div class="container">
+    <span class="eyebrow"><span class="blk" style="background: var(--red);"></span>Programmes</span>
+    <h2>Playgroup through Grade 6</h2>
+    <div style="margin-top: var(--space-md);">
+      {% for p in programmes %}
+        <span class="chip" style="font-size: var(--fs-sm); padding: 10px 18px;">{{ p.name }}{% if p.age_range %} <span style="opacity:0.7;">· {{ p.age_range }}</span>{% endif %}</span>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- LEARNING AREAS -->
+<section class="section reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow" style="justify-content:center;"><span class="blk" style="background: var(--green);"></span>Learning Areas</span>
+      <h2>What your child will explore</h2>
+    </div>
+    <div class="card-grid cols-4">
+      {% for area in subject_areas %}
+        <div class="card" style="text-align:center;">
+          <h3 style="font-size: var(--fs-sm); margin-bottom:4px;">{{ area.name }}</h3>
+          {% if area.description %}<p style="font-size: var(--fs-xs);">{{ area.description }}</p>{% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- TEACHING APPROACH -->
+{% if teaching_approaches %}
+<section class="section section-tint reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow" style="justify-content:center;"><span class="blk" style="background: var(--red);"></span>Our Approach</span>
+      <h2>How we teach</h2>
+    </div>
+    <div class="card-grid cols-3">
+      {% for approach in teaching_approaches %}
+        <div class="card">
+          <div class="blk-stack" style="margin-bottom: 10px;">
+            <span class="blk" style="background: var(--green);"></span>
+            <span class="blk" style="background: var(--green); opacity:0.5; margin-left:-4px; margin-top:5px;"></span>
+          </div>
+          <h3>{{ approach.title }}</h3>
+          {% if approach.description %}<p>{{ approach.description }}</p>{% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- JUNIOR SCHOOL TEASER -->
+<section class="section reveal">
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center; gap: var(--space-md); flex-wrap:wrap;">
+    <div>
+      <span class="eyebrow"><span class="blk" style="background: var(--green);"></span>What's Next</span>
+      <h2 style="margin-bottom:0;">Continuing on to Junior School (Grade 7–8)</h2>
+    </div>
+    <a href="{% url 'junior_school:junior_school' %}" class="btn btn-outline">Explore Junior School</a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section">
+  <div class="container">
+    <div class="cta-band reveal">
+      <div>
+        <h2>Ready to enroll?</h2>
+        <p style="margin:0; opacity:0.9;">Applications are open for the current intake.</p>
+      </div>
+      <a href="{% url 'admissions:admissions' %}" class="btn btn-white">Apply Now</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/reveal.js' %}" defer></script>
+{% endblock %}

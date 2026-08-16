@@ -1,0 +1,17 @@
+<div class="topbar">
+  <div class="container" style="flex-wrap: wrap; row-gap: 4px;">
+    <div style="display:flex; gap: 20px;">
+      <a href="tel:{{ site.phone }}" class="topbar-item">
+        <i class="ti ti-phone" aria-hidden="true"></i> {{ site.phone }}
+      </a>
+      <span class="topbar-item">
+        <i class="ti ti-map-pin" aria-hidden="true"></i> {{ site.address }}
+      </span>
+    </div>
+    <div class="topbar-socials">
+      {% if site.facebook_url %}<a href="{{ site.facebook_url }}" aria-label="Facebook">FB</a>{% endif %}
+      {% if site.instagram_url %}<a href="{{ site.instagram_url }}" aria-label="Instagram">IG</a>{% endif %}
+      {% if site.tiktok_url %}<a href="{{ site.tiktok_url }}" aria-label="TikTok">TikTok</a>{% endif %}
+    </div>
+  </div>
+</div>

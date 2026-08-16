@@ -1,0 +1,35 @@
+<header class="site-header">
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="container">
+      <a href="{% url 'core:home' %}" class="brand">
+        <span class="blk-stack">
+          <span class="blk" style="background: var(--red);"></span>
+          <span class="blk" style="background: var(--green); margin-left:-4px; margin-top:5px;"></span>
+        </span>
+        <span class="brand-name">{{ site.school_name }}</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="{% url 'core:about' %}">About</a></li>
+        <li><a href="{% url 'academics:academics' %}">Academics</a></li>
+        <li><a href="{% url 'junior_school:junior_school' %}">Junior School</a></li>
+        <li><a href="{% url 'clubs:clubs' %}">Clubs</a></li>
+        <li><a href="{% url 'gallery:gallery' %}">Gallery</a></li>
+        <li><a href="{% url 'events:list' %}">Events</a></li>
+        <li><a href="{% url 'news:list' %}">News</a></li>
+        <li><a href="{% url 'contact:contact' %}">Contact</a></li>
+        <li class="nav-cta-item"><a href="{% url 'admissions:admissions' %}" class="btn btn-outline">Book a Visit</a></li>
+        <li class="nav-cta-item"><a href="{% url 'admissions:admissions' %}" class="btn btn-primary">Apply Now</a></li>
+      </ul>
+
+      <div class="nav-cta">
+        <a href="{% url 'admissions:admissions' %}" class="btn btn-outline">Book a Visit</a>
+        <a href="{% url 'admissions:admissions' %}" class="btn btn-primary">Apply Now</a>
+      </div>
+
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>

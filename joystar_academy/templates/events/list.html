@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Events — {{ site.school_name }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/components.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="section">
+  <div class="container section-head" style="max-width: 720px;">
+    <span class="eyebrow" style="justify-content:center;"><span class="blk" style="background: var(--green);"></span>Events</span>
+    <h1>What's happening at Joystar</h1>
+    <p style="color: var(--text-muted);">Open days, sports days, trips and celebrations — all in one place.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+
+    <!-- Upcoming / Past / Calendar tabs -->
+    <div class="events-tabs" style="margin-bottom: var(--space-md);">
+      <a href="?when=upcoming" class="events-tab {% if active_when == 'upcoming' %}is-active{% endif %}">Upcoming</a>
+      <a href="?when=past" class="events-tab {% if active_when == 'past' %}is-active{% endif %}">Past</a>
+      <a href="{% url 'events:list' %}" class="events-tab {% if not active_when %}is-active{% endif %}">All</a>
+    </div>
+
+    <!-- Search + category + month filters -->
+    <form method="get" class="events-toolbar">
+      {% if active_when %}<input type="hidden" name="when" value="{{ active_when }}">{% endif %}
+      <input type="search" name="q" value="{{ query }}" placeholder="Search events…">
+
+      <select name="category" onchange="this.form.submit()">
+        <option value="">All categories</option>
+        {% for cat in categories %}
+          <option value="{{ cat.slug }}" {% if active_category == cat.slug %}selected{% endif %}>{{ cat.name }}</option>
+        {% endfor %}
+      </select>
+
+      <select name="month" onchange="this.form.submit()">
+        <option value="">Any month</option>
+        {% for m in month_options %}
+          <option value="{{ m|date:'Y-m' }}" {% if active_month == m|date:'Y-m' %}selected{% endif %}>{{ m|date:"F Y" }}</option>
+        {% endfor %}
+      </select>
+
+      <button type="submit" class="btn btn-outline" style="padding: 9px 18px;">Filter</button>
+    </form>
+
+    <!-- Event list -->
+    {% for event in events %}
+      <a href="{{ event.get_absolute_url }}" class="event-card {% if event.date < now %}is-past{% endif %}">
+        <div class="event-thumb" {% if event.cover_image %}style="background-image: url('{{ event.cover_image.url }}');"{% endif %}></div>
+        <div>
+          {% if event.category %}<span class="event-badge">{{ event.category.name }}</span>{% endif %}
+          <h3 style="margin: 4px 0;">{{ event.title }}</h3>
+          <p style="color: var(--text-muted); font-size: var(--fs-sm); margin: 0 0 4px;">
+            <i class="ti ti-calendar" aria-hidden="true"></i> {{ event.date|date:"d M Y, g:i A" }}
+            &nbsp;·&nbsp;
+            <i class="ti ti-map-pin" aria-hidden="true"></i> {{ event.venue }}
+          </p>
+          <p style="color: var(--text-muted); font-size: var(--fs-sm); margin:0;">{{ event.summary }}</p>
+        </div>
+      </a>
+    {% empty %}
+      <p style="color: var(--text-muted); text-align:center; padding: var(--space-xl) 0;">No events match your filters yet.</p>
+    {% endfor %}
+
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/reveal.js' %}" defer></script>
+{% endblock %}

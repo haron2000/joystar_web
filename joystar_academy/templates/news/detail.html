@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }} — {{ site.school_name }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/components.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="section">
+  <div class="container" style="max-width: 760px;">
+
+    <a href="{% url 'news:list' %}" style="color: var(--green); font-weight:600; font-size: var(--fs-sm); text-decoration:none;">← Back to News</a>
+
+    {% if post.category %}<span class="news-badge" style="margin-top: var(--space-md);">{{ post.category.name }}</span>{% endif %}
+    <h1 style="margin-top: 6px;">{{ post.title }}</h1>
+    <div class="news-meta" style="margin-bottom: var(--space-lg); font-size: var(--fs-sm);">
+      {{ post.published_at|date:"l, d F Y" }} · By {{ post.author_name }}
+    </div>
+
+    {% if post.cover_image %}
+      <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="article-hero-img">
+    {% endif %}
+
+    <div class="article-body">
+      {{ post.body|linebreaks }}
+    </div>
+
+  </div>
+</section>
+
+{% if related %}
+<section class="section section-tint reveal">
+  <div class="container">
+    <span class="eyebrow"><span class="blk" style="background: var(--green);"></span>Related Posts</span>
+    <h2 style="margin-bottom: var(--space-md);">You might also like</h2>
+    <div class="card-grid cols-3">
+      {% for r in related %}
+        <a href="{{ r.get_absolute_url }}" class="news-card">
+          <div class="thumb" {% if r.cover_image %}style="background-image: url('{{ r.cover_image.url }}');"{% endif %}></div>
+          <div class="body">
+            {% if r.category %}<span class="news-badge">{{ r.category.name }}</span>{% endif %}
+            <h3>{{ r.title }}</h3>
+            <div class="news-meta">{{ r.published_at|date:"d M Y" }}</div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/reveal.js' %}" defer></script>
+{% endblock %}
