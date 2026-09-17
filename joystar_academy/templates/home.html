@@ -42,13 +42,12 @@
 
 <!-- ABOUT -->
 <section class="section section-tint reveal">
-  <div class="container" style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items:center;">
+  <div class="container card-grid cols-2" style="align-items:center;">
     <div>
       <span class="eyebrow"><span class="blk" style="background: var(--red);"></span>About Us</span>
       <h2>A place to grow, explore and belong</h2>
       <p style="color: var(--text-muted);">{{ site.philosophy }}</p>
-      <div class="stats-strip" style="grid-template-columns: repeat(3, 1fr); text-align:left; margin-top: var(--space-lg);">
-        {% for stat in stats|slice:":3" %}
+      <div class="stats-strip cols-3-override" style="text-align:left; margin-top: var(--space-lg);">        {% for stat in stats|slice:":3" %}
           <div>
             <div class="stat-number"><span data-counter="{{ stat.value }}" data-suffix="{{ stat.suffix }}">0{{ stat.suffix }}</span></div>
             <div class="stat-label">{{ stat.label }}</div>

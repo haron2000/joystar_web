@@ -402,3 +402,11 @@
 .article-body { color: var(--text-body); line-height: 1.8; font-size: var(--fs-base); }
 .article-body p { margin-bottom: var(--space-md); }
 
+/* ---- Two-column responsive grid (Vision/Mission, etc.) ---- */
+.cols-2 { grid-template-columns: 1fr 1fr; }
+@media (max-width: 700px) {
+  .cols-2 { grid-template-columns: 1fr; }
+}
+
+.cols-3-override { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 700px) { .cols-3-override { grid-template-columns: repeat(2, 1fr); } }

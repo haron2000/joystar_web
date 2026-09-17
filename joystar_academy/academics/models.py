@@ -8,6 +8,7 @@ class SubjectArea(models.Model):
     description = models.CharField(max_length=255, blank=True)
     icon = models.CharField(max_length=50, default="book")
     order = models.PositiveIntegerField(default=0)
+    
 
     class Meta:
         ordering = ["order", "id"]
