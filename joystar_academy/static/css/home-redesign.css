@@ -1,0 +1,689 @@
+/* ==========================================================================
+   Home Redesign — Carol & Kelly Joystar Academy
+   Terracotta / Olive / Sand color system layered on top of tokens.css
+   ========================================================================== */
+
+.home-redesign {
+  --terracotta: #c85a32;
+  --terracotta-dark: #a34320;
+  --solar-yellow: #f1c40f;
+  --solar-yellow-hover: #d4ac0d;
+  --olive-dark: #192622;
+  --olive-card: #21332e;
+  --olive-light: #8a9a86;
+  --sand-bg: #f9f6f0;
+}
+
+/* ==========================================================================
+   2. REUSABLE COMPONENTS
+   ========================================================================== */
+.home-redesign .section { padding: 6rem 0; }
+.home-redesign .section-sm { padding: 3rem 0; }
+.home-redesign .text-center { text-align: center; }
+
+.home-redesign .badge-pill {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  background: rgba(200, 90, 50, 0.1);
+  color: var(--terracotta);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+.home-redesign .badge-pill-light {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--white, #ffffff);
+}
+
+.home-redesign .section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--ink);
+  line-height: 1.2;
+  font-family: var(--font-display);
+}
+.home-redesign .section-title.text-white { color: var(--white, #ffffff); }
+
+.home-redesign .section-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted, #5a6a65);
+  max-width: 600px;
+  margin: 0 auto 3rem auto;
+  font-weight: 400;
+}
+.home-redesign .section-subtitle.text-light { color: rgba(255, 255, 255, 0.8); }
+
+.home-redesign .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  border: none;
+  font-family: var(--font-body);
+}
+.home-redesign .btn-terracotta {
+  background-color: var(--terracotta);
+  color: var(--white, #ffffff);
+}
+.home-redesign .btn-terracotta:hover {
+  background-color: var(--terracotta-dark);
+  transform: translateY(-2px);
+}
+
+.home-redesign .btn-yellow {
+  background-color: var(--solar-yellow);
+  color: var(--ink);
+}
+.home-redesign .btn-yellow:hover {
+  background-color: var(--solar-yellow-hover);
+  transform: translateY(-2px);
+}
+
+.home-redesign .btn-solid-white {
+  background-color: var(--white, #ffffff);
+  color: var(--ink);
+}
+.home-redesign .btn-solid-white:hover {
+  background-color: var(--sand-bg);
+  transform: translateY(-2px);
+}
+
+.home-redesign .btn-outline-white {
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  color: var(--white, #ffffff);
+  background: transparent;
+}
+.home-redesign .btn-outline-white:hover {
+  border-color: var(--white, #ffffff);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.home-redesign .starburst-badge {
+  width: 90px;
+  height: 90px;
+  background: var(--solar-yellow);
+  clip-path: polygon(100% 50%, 88% 65%, 95% 82%, 77% 85%, 75% 100%, 58% 91%, 47% 100%, 37% 88%, 20% 91%, 19% 73%, 2% 70%, 12% 54%, 0% 40%, 17% 33%, 12% 16%, 29% 17%, 36% 0%, 51% 10%, 64% 2%, 70% 18%, 87% 16%, 83% 34%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  font-weight: 800;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* ==========================================================================
+   3. HERO SECTION
+   ========================================================================== */
+.home-redesign .hero-wrapper {
+  position: relative;
+  background-image: linear-gradient(to right, rgba(25, 38, 34, 0.94) 35%, rgba(25, 38, 34, 0.5) 100%), url('https://images.unsplash.com/photo-1541829070764-84a7d39dd703?w=1600&q=80');
+  background-size: cover;
+  background-position: center;
+  color: var(--white, #ffffff);
+  padding-bottom: 5rem;
+}
+
+.home-redesign .hero-banner { padding: 5rem 0 7rem 0; }
+.home-redesign .hero-container {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3rem;
+  align-items: center;
+}
+.home-redesign .hero-title {
+  font-size: 3.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+}
+.home-redesign .hero-title em { font-style: italic; color: var(--solar-yellow); }
+.home-redesign .hero-subtitle {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 520px;
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+}
+.home-redesign .hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.home-redesign .hero-portrait-frame {
+  position: relative;
+  width: 320px;
+  height: 420px;
+  border-radius: 160px;
+  overflow: hidden;
+  border: 6px solid rgba(255, 255, 255, 0.15);
+  margin: 0 auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+.home-redesign .hero-portrait-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-redesign .hero-cards-container {
+  position: relative;
+  z-index: 10;
+  margin-top: -3.5rem;
+}
+.home-redesign .hero-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.home-redesign .feature-card {
+  background-color: var(--olive-card);
+  color: var(--white, #ffffff);
+  padding: 2.5rem 2rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  border-bottom: 4px solid var(--terracotta);
+}
+.home-redesign .card-icon {
+  margin-bottom: 1.25rem;
+  display: flex;
+  justify-content: center;
+  color: var(--solar-yellow);
+}
+.home-redesign .feature-card h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--white, #ffffff);
+}
+.home-redesign .feature-card p {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   4. INFINITE MARQUEE STRIP
+   ========================================================================== */
+.home-redesign .marquee-strip {
+  background: var(--terracotta);
+  color: var(--white, #ffffff);
+  padding: 0.85rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.home-redesign .marquee-track {
+  display: inline-flex;
+  align-items: center;
+  animation: marquee 25s linear infinite;
+}
+.home-redesign .marquee-item { padding: 0 1.5rem; }
+.home-redesign .marquee-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--solar-yellow);
+  border-radius: 50%;
+  display: inline-block;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ==========================================================================
+   5. EDITORIAL ABOUT SECTION
+   ========================================================================== */
+.home-redesign .section-about { background-color: var(--white, #ffffff); }
+.home-redesign .about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.home-redesign .about-image-composition {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+.home-redesign .pill-img-main {
+  width: 220px;
+  height: 340px;
+  border-radius: 110px;
+  object-fit: cover;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+.home-redesign .pill-img-secondary {
+  width: 180px;
+  height: 260px;
+  border-radius: 90px;
+  object-fit: cover;
+  align-self: flex-end;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+.home-redesign .about-image-composition .starburst-badge {
+  position: absolute;
+  top: 10%;
+  left: 42%;
+}
+.home-redesign .about-image-composition .starburst-badge span { display: block; }
+
+.home-redesign .body-text {
+  font-size: 1rem;
+  color: var(--text-muted, #5a6a65);
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+.home-redesign .stats-row {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--border-hair, rgba(22, 25, 27, 0.1));
+  padding-top: 1.5rem;
+}
+.home-redesign .stat-item .stat-number {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1;
+  font-family: var(--font-display);
+}
+.home-redesign .stat-item .stat-label {
+  font-size: 0.85rem;
+  color: var(--text-muted, #5a6a65);
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+/* ==========================================================================
+   6. LEARNING PATHWAYS (DARK OLIVE BACKGROUND)
+   ========================================================================== */
+.home-redesign .section-dark-olive {
+  background-color: var(--olive-dark);
+  position: relative;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.home-redesign .pathways-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+.home-redesign .pathway-card {
+  background: var(--olive-card);
+  border-bottom: 4px solid var(--terracotta);
+  padding: 3rem 2rem;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+.home-redesign .pathway-card:hover { transform: translateY(-5px); }
+.home-redesign .pathway-icon {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  color: var(--solar-yellow);
+}
+.home-redesign .pathway-card h3 {
+  font-size: 1.35rem;
+  color: var(--white, #ffffff);
+  margin-bottom: 1rem;
+  font-family: var(--font-display);
+}
+.home-redesign .pathway-card p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 2rem;
+}
+
+/* ==========================================================================
+   7. FACILITIES SECTION
+   ========================================================================== */
+.home-redesign .section-facilities { background-color: var(--sand-bg); }
+.home-redesign .facilities-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.home-redesign .facilities-list-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.home-redesign .facilities-list-two-col ul li {
+  font-size: 0.95rem;
+  color: var(--ink);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.home-redesign .facilities-list-two-col ul li::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--terracotta);
+  border-radius: 50%;
+}
+.home-redesign .facilities-media img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   8. STUDENT LIFE & EXTRACURRICULAR CARDS
+   ========================================================================== */
+.home-redesign .section-student-life { background-color: var(--white, #ffffff); }
+.home-redesign .life-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.home-redesign .life-card {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+.home-redesign .life-card img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.home-redesign .life-card:hover img { transform: scale(1.05); }
+.home-redesign .life-card-tag {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  background: var(--olive-card);
+  color: var(--white, #ffffff);
+  padding: 0.75rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  text-align: center;
+  border-left: 4px solid var(--solar-yellow);
+}
+
+/* ==========================================================================
+   9. VIDEO TOUR BANNER
+   ========================================================================== */
+.home-redesign .section-video-banner {
+  position: relative;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.home-redesign .video-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.home-redesign .video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(25, 38, 34, 0.7), rgba(25, 38, 34, 0.7));
+}
+.home-redesign .video-play-btn {
+  position: relative;
+  z-index: 2;
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  background: var(--solar-yellow);
+  color: var(--ink);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+.home-redesign .video-play-btn:hover { transform: scale(1.1); }
+
+/* ==========================================================================
+   10. FAQ SECTION
+   ========================================================================== */
+.home-redesign .section-faq { background-color: var(--sand-bg); }
+.home-redesign .faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 4rem;
+}
+.home-redesign .faq-left-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.home-redesign .faq-highlight-card {
+  background-color: var(--olive-card);
+  color: var(--white, #ffffff);
+  padding: 2.25rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border-left: 4px solid var(--solar-yellow);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+.home-redesign .faq-highlight-card h5 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--solar-yellow);
+  font-family: var(--font-body);
+  font-weight: 700;
+}
+.home-redesign .faq-highlight-card p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+}
+
+.home-redesign .accordion-list { padding: 0; }
+.home-redesign .accordion-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1.25rem 0;
+  list-style: none;
+}
+.home-redesign .accordion-item:first-child { border-top: 1px solid rgba(0, 0, 0, 0.1); }
+.home-redesign .accordion-header {
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.05rem;
+  color: var(--ink);
+  padding: 0;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+.home-redesign .accordion-header:focus { outline: none; }
+.home-redesign .accordion-body {
+  padding-top: 0.75rem;
+  color: var(--text-muted, #5a6a65);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.home-redesign .accordion-body p { margin: 0; }
+
+/* ==========================================================================
+   11. OVERLAPPING CTA BANNER
+   ========================================================================== */
+.home-redesign .section-cta-banner-wrapper {
+  margin-bottom: -5rem;
+  position: relative;
+  z-index: 20;
+}
+.home-redesign .cta-banner-card {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 5rem 4rem;
+  background-color: var(--olive-dark);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+.home-redesign .cta-card-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.25;
+}
+.home-redesign .cta-card-content {
+  position: relative;
+  z-index: 2;
+  background: var(--white, #ffffff);
+  padding: 3rem;
+  max-width: 480px;
+  margin-left: auto;
+  border-radius: 8px;
+  border-left: 6px solid var(--terracotta);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+.home-redesign .cta-card-content h2 {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+.home-redesign .cta-card-content p {
+  font-size: 0.95rem;
+  color: var(--text-muted, #5a6a65);
+  margin-bottom: 1.5rem;
+}
+
+/* ==========================================================================
+   12. FOOTER (dark olive variant)
+   ========================================================================== */
+.home-redesign .site-footer {
+  background-color: var(--olive-dark);
+  color: var(--white, #ffffff);
+  padding-top: 9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+.home-redesign .footer-main-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.5fr;
+  gap: 4rem;
+  padding-bottom: 4rem;
+}
+.home-redesign .footer-desc {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.9rem;
+  margin: 1.25rem 0 1.5rem 0;
+  line-height: 1.6;
+}
+.home-redesign .social-icons {
+  display: flex;
+  gap: 1rem;
+  color: var(--white, #ffffff);
+}
+.home-redesign .social-icons a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--olive-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+.home-redesign .social-icons a:hover { background: var(--terracotta); }
+.home-redesign .footer-col-nav ul li { margin-bottom: 0.75rem; }
+.home-redesign .footer-col-nav a {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+.home-redesign .footer-col-nav a:hover { color: var(--white, #ffffff); }
+.home-redesign .footer-col-contact h5,
+.home-redesign .footer-col-nav h5 {
+  color: var(--white, #ffffff);
+  margin-bottom: 1.25rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  font-family: var(--font-body);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.home-redesign .footer-col-contact p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+.home-redesign .footer-map-box iframe {
+  width: 100%;
+  height: 130px;
+  border: none;
+  border-radius: 4px;
+  margin-top: 1rem;
+  filter: grayscale(0.6) contrast(1.2);
+}
+.home-redesign .footer-bottom-bar {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.75rem 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+.home-redesign .footer-bottom-flex {
+  display: flex;
+  justify-content: space-between;
+}
+.home-redesign .legal-links a {
+  margin-left: 1.5rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+.home-redesign .legal-links a:hover { color: var(--white, #ffffff); }
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .home-redesign .hero-container,
+  .home-redesign .about-grid,
+  .home-redesign .facilities-grid,
+  .home-redesign .faq-grid,
+  .home-redesign .footer-main-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .home-redesign .hero-cards-grid,
+  .home-redesign .pathways-grid,
+  .home-redesign .life-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .home-redesign .hero-title { font-size: 2.75rem; }
+  .home-redesign .cta-card-content { margin: 0 auto; max-width: 100%; }
+}

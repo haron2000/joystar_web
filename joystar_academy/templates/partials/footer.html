@@ -1,38 +1,60 @@
+<!-- SITE FOOTER -->
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-grid">
-      <div>
-        <h4 style="font-family: var(--font-display); font-size: var(--fs-md); color: var(--green-light);">{{ site.school_name }}</h4>
-        <p>{{ site.motto }}</p>
-        <div class="social-icons">
-          {% if site.facebook_url %}<a href="{{ site.facebook_url }}" aria-label="Facebook"><i class="ti ti-brand-facebook" aria-hidden="true"></i></a>{% endif %}
-          {% if site.instagram_url %}<a href="{{ site.instagram_url }}" aria-label="Instagram"><i class="ti ti-brand-instagram" aria-hidden="true"></i></a>{% endif %}
-          {% if site.tiktok_url %}<a href="{{ site.tiktok_url }}" aria-label="TikTok"><i class="ti ti-brand-tiktok" aria-hidden="true"></i></a>{% endif %}
-        </div>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="{% url 'core:home' %}" class="brand-logo-link">
+          <svg class="brand-icon" viewBox="0 0 32 32" fill="none">
+            <rect x="2" y="14" width="10" height="10" rx="3" fill="#c85a32"/>
+            <rect x="8" y="8" width="10" height="10" rx="3" fill="#ffffff"/>
+            <rect x="14" y="2" width="10" height="10" rx="3" fill="#f1c40f"/>
+          </svg>
+          <div class="brand-info">
+            <span class="brand-title">{{ site.school_name }}</span>
+            <span class="brand-tag">Junior School</span>
+          </div>
+        </a>
+        <p>Shaping confident, responsible, and globally competitive learners through quality CBC education.</p>
       </div>
-      <div>
-        <h4>Quick Links</h4>
-        <p><a href="{% url 'core:about' %}">About</a></p>
-        <p><a href="{% url 'admissions:admissions' %}">Admissions</a></p>
-        <p><a href="{% url 'academics:academics' %}">Academics</a></p>
-        <p><a href="{% url 'gallery:gallery' %}">Gallery</a></p>
+
+      <div class="footer-column">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="{% url 'core:about' %}">About Us</a></li>
+          <li><a href="{% url 'academics:academics' %}">Academics</a></li>
+          <li><a href="{% url 'clubs:clubs' %}">Clubs &amp; Activities</a></li>
+          <li><a href="{% url 'news:list' %}">News &amp; Gallery</a></li>
+        </ul>
       </div>
-      <div>
-        <h4>More</h4>
-        <p><a href="{% url 'clubs:clubs' %}">Clubs</a></p>
-        <p><a href="{% url 'events:list' %}">Events</a></p>
-        <p><a href="{% url 'news:list' %}">News</a></p>
+
+      <div class="footer-column">
+        <h4>Admissions</h4>
+        <ul class="footer-links">
+          <li><a href="{% url 'admissions:admissions' %}">Application Process</a></li>
+          <li><a href="{% url 'admissions:admissions' %}">Fee Structure</a></li>
+          <li><a href="{% url 'admissions:admissions' %}">Book Campus Tour</a></li>
+          <li><a href="{% url 'contact:contact' %}">Contact Office</a></li>
+        </ul>
       </div>
-      <div>
-        <h4>Contact</h4>
-        <p>{{ site.phone }}</p>
-        <p>{{ site.address }}</p>
-        <p><a href="{% url 'contact:contact' %}">Send a message →</a></p>
+
+      <div class="footer-column">
+        <h4>Quick Support</h4>
+        <ul class="footer-links">
+          <li><a href="tel:{{ site.phone }}">{{ site.phone|default:"+254 700 000 000" }}</a></li>
+          <li><a href="mailto:{{ site.email }}">{{ site.email|default:"info@school.ac.ke" }}</a></li>
+          <li><a href="{% url 'contact:contact' %}">FAQ Center</a></li>
+          <li><a href="{% url 'contact:contact' %}">Location Map</a></li>
+        </ul>
       </div>
     </div>
+
     <div class="footer-bottom">
-      <span>&copy; {% now "Y" %} {{ site.school_name }}. All rights reserved.</span>
-      <span>Creating a Firm Foundation</span>
+      <div>&copy; {% now "Y" %} {{ site.school_name }}. All rights reserved.</div>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms &amp; Conditions</a>
+        <a href="#">Portal</a>
+      </div>
     </div>
   </div>
 </footer>

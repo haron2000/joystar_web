@@ -1,0 +1,1103 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+/* ==========================================================================
+   1. DESIGN SYSTEM & TOKENS
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --olive-dark: #192622;
+  --olive-card: #21332e;
+  --olive-light: #8a9a86;
+  --terracotta: #c85a32;
+  --terracotta-dark: #a34320;
+  --solar-yellow: #f1c40f;
+  --solar-yellow-hover: #d4ac0d;
+  --sand-bg: #f9f6f0;
+  --ink: #121e1a;
+  --text-muted: #5a6a65;
+  --white: #ffffff;
+  --border-light: #e2e8e5;
+
+  --font-heading: 'Fraunces', serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 3rem;
+  --space-xl: 5rem;
+
+  --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.22);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background-color: var(--white);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, .font-heading {
+  font-family: var(--font-heading);
+}
+
+/* ==========================================================================
+   2. HEADER, REFINED LOGO & AIRBNB-STYLE MENU
+   ========================================================================== */
+.site-header {
+  background: rgba(25, 38, 34, 0.98);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  position: relative;
+}
+
+/* Matched Logo Styling */
+.site-logo-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-text-wrap {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.logo-title {
+  color: var(--white);
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  font-family: var(--font-body);
+}
+
+.logo-subtitle {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.78rem;
+  font-weight: 500;
+  margin-top: 1px;
+}
+
+.nav-primary-links {
+  display: flex;
+  list-style: none;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-primary-links a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.92rem;
+  transition: color 0.2s;
+}
+
+.nav-primary-links a:hover {
+  color: var(--solar-yellow);
+}
+
+/* Airbnb-style Round Pill Trigger */
+.airbnb-menu-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-pill);
+  color: var(--white);
+  padding: 6px 8px 6px 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+.airbnb-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.airbnb-avatar-icon {
+  width: 30px;
+  height: 30px;
+  background: var(--terracotta);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+}
+
+/* Floating Dropdown Card */
+.airbnb-dropdown-card {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 280px;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+  padding: 8px 0;
+  z-index: 110;
+  overflow: hidden;
+  animation: popIn 0.18s cubic-bezier(0, 0, 0.2, 1);
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.95) translateY(-6px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.airbnb-dropdown-card.is-active {
+  display: block;
+}
+
+.airbnb-menu-group {
+  padding: 6px 0;
+}
+
+.airbnb-menu-group + .airbnb-menu-group {
+  border-top: 1px solid var(--border-light);
+}
+
+.airbnb-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.15s ease;
+}
+
+.airbnb-menu-item:hover {
+  background: #f4f6f5;
+}
+
+.airbnb-menu-item.highlighted {
+  font-weight: 700;
+  color: var(--olive-dark);
+}
+
+.airbnb-menu-subtext {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.mobile-only-item {
+  display: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .nav-primary-links { display: none; }
+  .mobile-only-item { display: flex; }
+}
+
+/* ==========================================================================
+   3. UI BADGES & BUTTONS
+   ========================================================================== */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.95rem;
+  background: rgba(200, 90, 50, 0.12);
+  color: var(--terracotta);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.badge-pill-light {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--white);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 0.92rem;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-terracotta {
+  background-color: var(--terracotta);
+  color: var(--white);
+}
+
+.btn-terracotta:hover {
+  background-color: var(--terracotta-dark);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.btn-yellow {
+  background-color: var(--solar-yellow);
+  color: var(--ink);
+}
+
+.btn-yellow:hover {
+  background-color: var(--solar-yellow-hover);
+  transform: translateY(-2px);
+}
+
+.btn-outline-white {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: var(--white);
+  background: transparent;
+}
+
+.btn-outline-white:hover {
+  border-color: var(--white);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+}
+
+/* ==========================================================================
+   4. HERO SECTION & CAROUSEL SLIDER
+   ========================================================================== */
+.hero-wrapper {
+  position: relative;
+  background-color: var(--olive-dark);
+  background-image: linear-gradient(to right, rgba(25, 38, 34, 0.95) 40%, rgba(25, 38, 34, 0.65) 100%),
+                    url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1600&q=80');
+  background-size: cover;
+  background-position: center;
+  color: var(--white);
+  padding: var(--space-xl) 0 var(--space-lg) 0;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+.hero-copy h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: var(--space-sm);
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+
+.hero-copy p {
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 520px;
+  margin-bottom: var(--space-md);
+  font-size: 1rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hero-portrait-frame-wide {
+  position: relative;
+  width: 540px;
+  max-width: 100%;
+  height: 520px;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  margin: 0 auto;
+  box-shadow: var(--shadow-lg);
+}
+
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.hero-slide.is-active {
+  opacity: 1;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.hero-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  color: var(--ink);
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.hero-arrow:hover {
+  background: var(--white);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.hero-arrow.prev { left: 16px; }
+.hero-arrow.next { right: 16px; }
+
+.hero-snug-cards {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+  margin-top: 3rem;
+}
+
+.snug-card {
+  background: rgba(33, 51, 46, 0.9);
+  backdrop-filter: blur(12px);
+  padding: 16px 14px;
+  border-radius: var(--radius-md);
+  border-bottom: 3px solid var(--terracotta);
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.snug-card:nth-child(even) {
+  border-bottom-color: var(--solar-yellow);
+}
+
+.snug-card-icon {
+  color: var(--solar-yellow);
+  font-size: 1.25rem;
+  margin-bottom: 6px;
+}
+
+.snug-card h4 {
+  font-size: 0.88rem;
+  margin: 0 0 6px 0;
+  color: var(--white);
+  font-weight: 700;
+}
+
+.snug-card p {
+  font-size: 0.72rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.35;
+}
+
+/* ==========================================================================
+   5. MARQUEE STRIP
+   ========================================================================== */
+.marquee-strip {
+  background: var(--terracotta);
+  color: var(--white);
+  padding: 1rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.marquee-track {
+  display: inline-flex;
+  align-items: center;
+  animation: marquee 25s linear infinite;
+}
+
+.marquee-item { padding: 0 1.75rem; }
+
+.marquee-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--solar-yellow);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ==========================================================================
+   6. EDITORIAL CARDS & SECTIONS
+   ========================================================================== */
+.section { padding: var(--space-xl) 0; }
+.section-tint { background-color: var(--sand-bg); }
+
+.section-dark-olive {
+  background-color: var(--olive-dark);
+  position: relative;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  color: var(--white);
+}
+
+.section-head {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto var(--space-xl);
+}
+
+.section-title {
+  font-size: 2.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--ink);
+  line-height: 1.18;
+}
+
+.section-title.text-white { color: var(--white); }
+
+.editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-md);
+}
+
+.editorial-card {
+  background-color: var(--olive-card);
+  color: var(--white);
+  padding: 3.5rem 2.5rem;
+  border-radius: var(--radius-md);
+  text-align: left;
+  box-shadow: var(--shadow-md);
+  border-top: 4px solid var(--terracotta);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 240px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.editorial-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.editorial-card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--white);
+  font-family: var(--font-heading);
+}
+
+.editorial-card p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.6;
+}
+
+.editorial-preview-card {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+  background: var(--white);
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease;
+}
+
+.editorial-preview-card:hover {
+  transform: translateX(4px);
+}
+
+.editorial-preview-thumb {
+  width: 100%;
+  height: 120px;
+  background: var(--sand-bg);
+  border-radius: var(--radius-sm);
+  background-size: cover;
+  background-position: center;
+}
+
+.preview-date {
+  color: var(--terracotta);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stats-strip {
+  display: flex;
+  gap: 3rem;
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border-light);
+  padding-top: 2rem;
+}
+
+.stat-number {
+  font-family: var(--font-heading);
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   7. PROMISE & CTA BANDS
+   ========================================================================== */
+.promise-band {
+  background: var(--olive-dark);
+  color: var(--white);
+  padding: var(--space-xl) 0;
+}
+
+.promise-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-md);
+}
+
+.promise-list li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 1.35rem;
+  font-family: var(--font-heading);
+}
+
+.cta-band {
+  border-radius: var(--radius-lg);
+  padding: 4.5rem 3.5rem;
+  background-color: var(--olive-dark);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  border-left: 8px solid var(--terracotta);
+}
+
+.cta-band h2 { color: var(--white); font-size: 2.25rem; }
+
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: center; }
+.map-frame { border: none; border-radius: var(--radius-md); width: 100%; height: 100%; min-height: 360px; filter: grayscale(0.15); }
+
+@media (max-width: 992px) {
+  .hero, .contact-grid { grid-template-columns: 1fr; }
+  .hero-portrait-frame-wide { width: 100%; height: 400px; }
+  .hero-snug-cards { grid-template-columns: repeat(3, 1fr); }
+  .editorial-preview-card { grid-template-columns: 1fr; }
+  .hero-copy h1 { font-size: 2.75rem; }
+}
+
+@media (max-width: 576px) {
+  .hero-snug-cards { grid-template-columns: repeat(2, 1fr); }
+  .hero-portrait-frame-wide { height: 320px; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- HEADER WITH REFINED LOGO AND AIRBNB DROPDOWN -->
+<header class="site-header">
+  <div class="container navbar-container">
+    
+    <!-- Refined 3-Step Diagonal Logo Icon & Typography -->
+    <a href="{% url 'core:home' %}#hero" class="site-logo-brand">
+      <svg width="34" height="34" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="18" width="12" height="12" rx="3.5" fill="#C85A32"/>
+        <rect x="12" y="12" width="12" height="12" rx="3.5" fill="#FFFFFF"/>
+        <rect x="22" y="6" width="12" height="12" rx="3.5" fill="#F1C40F"/>
+      </svg>
+      <div class="logo-text-wrap">
+        <span class="logo-title">Joystar Academy</span>
+        <span class="logo-subtitle">Carol &amp; Kelly</span>
+      </div>
+    </a>
+
+    <!-- Primary Nav Links -->
+    <ul class="nav-primary-links">
+      <li><a href="{% url 'core:home' %}#hero">Home</a></li>
+      <li><a href="{% url 'core:about' %}#about">About Us</a></li>
+      <li><a href="{% url 'academics:academics' %}#academics">Academics</a></li>
+      <li><a href="{% url 'clubs:clubs' %}#clubs">Student Life</a></li>
+      <li><a href="{% url 'admissions:admissions' %}#admissions">Admissions</a></li>
+      <li><a href="{% url 'news:list' %}#news">News</a></li>
+      <li><a href="{% url 'contact:contact' %}#contact">Contact</a></li>
+    </ul>
+
+    <div style="display: flex; align-items: center; gap: 12px; position: relative;">
+      <a href="{% url 'admissions:admissions' %}#admissions" class="btn btn-yellow" style="padding: 7px 16px; font-size: 0.85rem;">Apply Now</a>
+      
+      <!-- Airbnb-Style Round Pill Trigger -->
+      <button class="airbnb-menu-btn" id="menu-toggle" aria-label="Main menu" aria-expanded="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <span>See More</span>
+      </button>
+
+      <!-- Airbnb-Style Floating Card Menu -->
+      <div class="airbnb-dropdown-card" id="airbnb-drawer">
+        <!-- Primary Links for Mobile Screen Fallback -->
+        <div class="airbnb-menu-group mobile-only-item" style="flex-direction: column;">
+          <a href="{% url 'core:home' %}#hero" class="airbnb-menu-item">Home</a>
+          <a href="{% url 'core:about' %}#about" class="airbnb-menu-item">About Us</a>
+          <a href="{% url 'academics:academics' %}#academics" class="airbnb-menu-item">Academics</a>
+          <a href="{% url 'clubs:clubs' %}#clubs" class="airbnb-menu-item">Student Life</a>
+          <a href="{% url 'admissions:admissions' %}#admissions" class="airbnb-menu-item">Admissions</a>
+          <a href="{% url 'news:list' %}#news" class="airbnb-menu-item">News</a>
+          <a href="{% url 'contact:contact' %}#contact" class="airbnb-menu-item">Contact</a>
+        </div>
+
+        <!-- Featured Section with Callout Subtext -->
+        <div class="airbnb-menu-group">
+          <a href="{% url 'admissions:admissions' %}#admissions" class="airbnb-menu-item highlighted">
+            <div>
+              <div>Book Campus Visit</div>
+              <div class="airbnb-menu-subtext">Schedule a walkthrough with our staff</div>
+            </div>
+            <span>→</span>
+          </a>
+        </div>
+
+        <!-- Secondary Actions & Fast Navigation -->
+        <div class="airbnb-menu-group">
+          <a href="{% url 'events:list' %}" class="airbnb-menu-item">Upcoming Events</a>
+          <a href="{% url 'news:list' %}#news" class="airbnb-menu-item">Latest News</a>
+        </div>
+
+        <div class="airbnb-menu-group">
+          <a href="{% url 'contact:contact' %}#contact" class="airbnb-menu-item">Help Center &amp; Support</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero-wrapper" id="hero">
+  <div class="container">
+    <div class="hero">
+      <div class="hero-copy">
+        <div class="badge-pill badge-pill-light">• Welcome to {{ site.school_name|default:"Joystar Academy" }}</div>
+        <h1>Shaping Global<br><em style="color: var(--solar-yellow); font-style: italic;">Leaders For Tomorrow</em></h1>
+        <p style="font-family: var(--font-heading); font-style: italic; color: var(--solar-yellow); font-size: 1.25rem; margin-bottom: 0.5rem;">
+          {{ site.motto }}
+        </p>
+        <p>{{ site.mission }}</p>
+        <div class="hero-actions">
+          <a href="{% url 'admissions:admissions' %}#admissions" class="btn btn-terracotta">Apply Now</a>
+          <a href="{% url 'admissions:admissions' %}#admissions" class="btn btn-outline-white">Book a Visit</a>
+        </div>
+      </div>
+
+      <div class="hero-image-wrap">
+        <div class="hero-portrait-frame-wide">
+          <div class="hero-slider" id="hero-slider">
+            {% for slide in hero_slides %}
+              <div class="hero-slide {% if forloop.first %}is-active{% endif %}">
+                <img src="{{ slide.image.url }}" alt="{{ slide.caption }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+              </div>
+            {% empty %}
+              <div class="hero-slide is-active">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&q=80" alt="Students studying">
+              </div>
+              <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&q=80" alt="Classroom engagement">
+              </div>
+            {% endfor %}
+            <button class="hero-arrow prev" id="hero-prev-btn" aria-label="Previous slide">&#10094;</button>
+            <button class="hero-arrow next" id="hero-next-btn" aria-label="Next slide">&#10095;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-snug-cards">
+      {% for item in why_choose_us %}
+        <div class="snug-card">
+          <div class="snug-card-icon">★</div>
+          <h4>{{ item.title }}</h4>
+          <p>{{ item.description|truncatechars:45 }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE RIBBON -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track">
+    {% for p in programmes %}
+      <span class="marquee-item">{{ p.name }}</span>
+      <span class="marquee-dot"></span>
+    {% endfor %}
+    {% for club in clubs %}
+      <span class="marquee-item">{{ club.name }}</span>
+      <span class="marquee-dot"></span>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- ABOUT SECTION -->
+<section class="section section-tint reveal" id="about">
+  <div class="container" style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items:center;">
+    <div>
+      <div class="badge-pill">About Us</div>
+      <h2 class="section-title">A place to grow, explore and belong</h2>
+      <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.8;">{{ site.philosophy }}</p>
+      <div class="stats-strip">
+        {% for stat in stats|slice:":3" %}
+          <div class="stat-item">
+            <div class="stat-number"><span data-counter="{{ stat.value }}" data-suffix="{{ stat.suffix }}">0{{ stat.suffix }}</span></div>
+            <div class="stat-label">{{ stat.label }}</div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div style="position: relative;">
+      <div style="background: var(--white); padding: 3.5rem 3rem; border-radius: var(--radius-md); box-shadow: var(--shadow-md); border-left: 6px solid var(--terracotta);">
+        <p style="color: var(--text-muted); font-size: 1.15rem; line-height: 1.7;"><strong style="color: var(--ink); font-family: var(--font-heading); font-size: 1.4rem; display: block; margin-bottom: 0.5rem;">Our Vision</strong> {{ site.vision }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACADEMIC PROGRAMMES -->
+<section class="section section-dark-olive reveal" id="academics">
+  <div class="container text-center">
+    <div class="badge-pill badge-pill-light">Academic Pathways</div>
+    <h2 class="section-title text-white">Nurturing Core Competencies</h2>
+    <div style="margin-top: var(--space-md); margin-bottom: var(--space-lg); display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;">
+      {% for p in programmes %}
+        <span style="background: rgba(255,255,255,0.1); color: var(--white); padding: 10px 20px; border-radius: var(--radius-sm); font-weight: 600; border-left: 3px solid var(--solar-yellow);">{{ p.name }}</span>
+      {% endfor %}
+    </div>
+    <a href="{% url 'academics:academics' %}#academics" class="btn btn-yellow">Explore Academics</a>
+  </div>
+</section>
+
+<!-- CLUBS (EDITORIAL CARDS) -->
+<section class="section reveal" id="clubs">
+  <div class="container">
+    <div class="section-head">
+      <div class="badge-pill">Clubs &amp; Co-curricular</div>
+      <h2 class="section-title">Beyond the classroom</h2>
+    </div>
+    
+    <div class="editorial-grid">
+      {% for club in clubs %}
+        <div class="editorial-card">
+          <h3>{{ club.name }}</h3>
+          <p>{{ club.description|default:"Fostering creativity, leadership, and teamwork through hands-on engagement."|truncatechars:90 }}</p>
+        </div>
+      {% endfor %}
+    </div>
+    
+    <div style="text-align: center; margin-top: var(--space-xl);">
+      <a href="{% url 'clubs:clubs' %}#clubs" class="btn btn-terracotta">View All Clubs &amp; Sports</a>
+    </div>
+  </div>
+</section>
+
+<!-- SCHOOL PROMISE -->
+<section class="section promise-band reveal">
+  <div class="container">
+    <div class="badge-pill badge-pill-light" style="color: var(--solar-yellow);">Our Promise</div>
+    <ul class="promise-list">
+      {% for item in promise_items %}
+        <li><span class="marquee-dot"></span>{{ item.text }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<!-- EVENTS & NEWS PREVIEW -->
+<section class="section reveal" id="news">
+  <div class="container" style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl);">
+    <div>
+      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom: var(--space-md);">
+        <div class="badge-pill" style="margin:0;">Upcoming Events</div>
+        <a href="{% url 'events:list' %}" style="color: var(--terracotta); font-weight:700; font-size: 0.9rem; text-decoration:none;">View all →</a>
+      </div>
+      {% for event in upcoming_events %}
+        <a href="{{ event.get_absolute_url }}" class="editorial-preview-card">
+          <div class="editorial-preview-thumb" {% if event.cover_image %}style="background-image:url('{{ event.cover_image.url }}');"{% endif %}></div>
+          <div>
+            <div class="preview-date">{{ event.date|date:"d M Y" }}</div>
+            <h3 style="font-size: 1.15rem; margin: 4px 0;">{{ event.title }}</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin:0;">{{ event.venue }}</p>
+          </div>
+        </a>
+      {% empty %}
+        <p style="color: var(--text-muted);">No upcoming events scheduled right now.</p>
+      {% endfor %}
+    </div>
+
+    <div>
+      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom: var(--space-md);">
+        <div class="badge-pill" style="margin:0;">Latest News</div>
+        <a href="{% url 'news:list' %}#news" style="color: var(--terracotta); font-weight:700; font-size: 0.9rem; text-decoration:none;">View all →</a>
+      </div>
+      {% for post in latest_news %}
+        <a href="{{ post.get_absolute_url }}" class="editorial-preview-card">
+          <div class="editorial-preview-thumb" {% if post.cover_image %}style="background-image:url('{{ post.cover_image.url }}');"{% endif %}></div>
+          <div>
+            <div class="preview-date">{{ post.published_at|date:"d M Y" }}</div>
+            <h3 style="font-size: 1.15rem; margin: 4px 0;">{{ post.title }}</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin:0;">{{ post.excerpt|truncatechars:70 }}</p>
+          </div>
+        </a>
+      {% empty %}
+        <p style="color: var(--text-muted);">No news posts available yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSIONS CTA BANNER -->
+<section class="section" id="admissions">
+  <div class="container">
+    <div class="cta-band reveal">
+      <div>
+        <h2>Admissions are open</h2>
+        <p style="margin:0; color: rgba(255,255,255,0.85); font-size: 1.05rem;">Playgroup through Junior School — book a visit today.</p>
+      </div>
+      <a href="{% url 'admissions:admissions' %}#admissions" class="btn btn-yellow">Apply Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT & LOCATION -->
+<section class="section section-tint reveal" id="contact">
+  <div class="container">
+    <div class="section-head">
+      <div class="badge-pill">Get in Touch</div>
+      <h2 class="section-title">Visit or contact us</h2>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <p style="font-size: 1.1rem; margin-bottom: 0.75rem;"><strong style="color: var(--ink);">Phone:</strong> <a href="tel:{{ site.phone }}" style="color: var(--terracotta);">{{ site.phone }}</a></p>
+        {% if site.email %}<p style="font-size: 1.1rem; margin-bottom: 0.75rem;"><strong style="color: var(--ink);">Email:</strong> <a href="mailto:{{ site.email }}" style="color: var(--terracotta);">{{ site.email }}</a></p>{% endif %}
+        <p style="font-size: 1.1rem; margin-bottom: 1.5rem;"><strong style="color: var(--ink);">Address:</strong> {{ site.address }}</p>
+        <a href="{% url 'contact:contact' %}#contact" class="btn btn-terracotta">Send a Message</a>
+      </div>
+      <iframe
+        class="map-frame"
+        src="https://www.google.com/maps?q={{ site.address|urlencode }}&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Map showing {{ site.school_name }} location">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/reveal.js' %}" defer></script>
+<script src="{% static 'js/counters.js' %}" defer></script>
+<script src="{% static 'js/testimonials.js' %}" defer></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. AIRBNB-STYLE MENU TOGGLE
+    const toggleBtn = document.getElementById('menu-toggle');
+    const drawer = document.getElementById('airbnb-drawer');
+    const header = document.querySelector('.site-header');
+
+    function closeDrawer() {
+      if (drawer && toggleBtn) {
+        drawer.classList.remove('is-active');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    if (toggleBtn && drawer) {
+      toggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+        toggleBtn.setAttribute('aria-expanded', !isExpanded);
+        drawer.classList.toggle('is-active');
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!drawer.contains(e.target) && !toggleBtn.contains(e.target)) {
+          closeDrawer();
+        }
+      });
+    }
+
+    // 2. SMOOTH SCROLL NAVIGATION INTERCEPTOR
+    const allNavLinks = document.querySelectorAll('.nav-primary-links a, .airbnb-dropdown-card a, .hero-actions a, .btn');
+
+    allNavLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        
+        if (href && href.includes('#')) {
+          const [path, targetId] = href.split('#');
+          const currentPath = window.location.pathname;
+          
+          // Smooth scroll if section exists on current page
+          if (targetId && (path === '' || path === currentPath || currentPath === '/')) {
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+              e.preventDefault();
+              closeDrawer();
+
+              const headerOffset = header ? header.offsetHeight : 0;
+              const elementPosition = targetElement.getBoundingClientRect().top;
+              const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+              });
+            }
+          }
+        }
+      });
+    });
+
+    // 3. HERO CAROUSEL LOGIC
+    const sliderContainer = document.getElementById('hero-slider');
+    if (sliderContainer) {
+      const slides = sliderContainer.querySelectorAll('.hero-slide');
+      const prevBtn = document.getElementById('hero-prev-btn');
+      const nextBtn = document.getElementById('hero-next-btn');
+      let currentIndex = 0;
+      let autoSlideTimer = null;
+
+      function showSlide(index) {
+        slides.forEach((slide, i) => {
+          if (i === index) {
+            slide.classList.add('is-active');
+          } else {
+            slide.classList.remove('is-active');
+          }
+        });
+      }
+
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % slides.length;
+        showSlide(currentIndex);
+      }
+
+      function prevSlide() {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        showSlide(currentIndex);
+      }
+
+      function startAutoSlide() {
+        stopAutoSlide();
+        autoSlideTimer = setInterval(nextSlide, 4500);
+      }
+
+      function stopAutoSlide() {
+        if (autoSlideTimer) {
+          clearInterval(autoSlideTimer);
+        }
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          nextSlide();
+          startAutoSlide();
+        });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          prevSlide();
+          startAutoSlide();
+        });
+      }
+
+      sliderContainer.addEventListener('mouseenter', stopAutoSlide);
+      sliderContainer.addEventListener('mouseleave', startAutoSlide);
+
+      if (slides.length > 1) {
+        startAutoSlide();
+      }
+    }
+  });
+</script>
+{% endblock %}

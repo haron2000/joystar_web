@@ -19,13 +19,19 @@ from .models import (
 
 
 def home(request):
+    why_choose_us = list(WhyChooseUsItem.objects.all())
+    feature_cards = why_choose_us[:3]
+    pathway_cards = why_choose_us[3:] if len(why_choose_us) > 3 else None
+
     context = {
         "meta_description": (
             "Carol & Kelly Joystar Academy in Umoja, Nairobi — a CBC school nurturing "
             "confident, responsible learners from Playgroup to Junior School. Creating a Firm Foundation."
         ),
         "hero_slides": HeroSlide.objects.filter(is_active=True),
-        "why_choose_us": WhyChooseUsItem.objects.all(),
+        "why_choose_us": why_choose_us,
+        "feature_cards": feature_cards,
+        "pathway_cards": pathway_cards,
         "programmes": Programme.objects.all(),
         "clubs": Club.objects.all()[:6],
         "promise_items": PromiseItem.objects.all(),

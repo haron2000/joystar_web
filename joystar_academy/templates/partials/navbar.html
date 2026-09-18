@@ -1,35 +1,76 @@
+<!-- ULTRA-RESPONSIVE SITE HEADER -->
 <header class="site-header">
-  <nav class="navbar" aria-label="Main navigation">
-    <div class="container">
-      <a href="{% url 'core:home' %}" class="brand">
-        <span class="blk-stack">
-          <span class="blk" style="background: var(--red);"></span>
-          <span class="blk" style="background: var(--green); margin-left:-4px; margin-top:5px;"></span>
-        </span>
-        <span class="brand-name">{{ site.school_name }}</span>
-      </a>
-
-      <ul class="nav-links">
-        <li><a href="{% url 'core:about' %}">About</a></li>
-        <li><a href="{% url 'academics:academics' %}">Academics</a></li>
-        <li><a href="{% url 'junior_school:junior_school' %}">Junior School</a></li>
-        <li><a href="{% url 'clubs:clubs' %}">Clubs</a></li>
-        <li><a href="{% url 'gallery:gallery' %}">Gallery</a></li>
-        <li><a href="{% url 'events:list' %}">Events</a></li>
-        <li><a href="{% url 'news:list' %}">News</a></li>
-        <li><a href="{% url 'contact:contact' %}">Contact</a></li>
-        <li class="nav-cta-item"><a href="{% url 'admissions:admissions' %}" class="btn btn-outline">Book a Visit</a></li>
-        <li class="nav-cta-item"><a href="{% url 'admissions:admissions' %}" class="btn btn-primary">Apply Now</a></li>
-      </ul>
-
-      <div class="nav-cta">
-        <a href="{% url 'admissions:admissions' %}" class="btn btn-outline">Book a Visit</a>
-        <a href="{% url 'admissions:admissions' %}" class="btn btn-primary">Apply Now</a>
+  <div class="container navbar-container">
+    <!-- Compact Left Brand Lockup -->
+    <a href="{% url 'core:home' %}" class="brand-logo-link">
+      <svg class="brand-icon" viewBox="0 0 32 32" fill="none">
+        <rect x="2" y="14" width="10" height="10" rx="3" fill="#c85a32"/>
+        <rect x="8" y="8" width="10" height="10" rx="3" fill="#ffffff"/>
+        <rect x="14" y="2" width="10" height="10" rx="3" fill="#f1c40f"/>
+      </svg>
+      <div class="brand-info">
+        <span class="brand-title">{{ site.school_name }}</span>
+        <span class="brand-tag">Junior School</span>
       </div>
+    </a>
 
-      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
+    <!-- Primary Navigation Links -->
+    <ul class="nav-inline-links">
+      <li><a href="{% url 'core:about' %}">About Us</a></li>
+      <li><a href="{% url 'academics:academics' %}">Academics</a></li>
+      <li><a href="{% url 'academics:academics' %}">Junior School</a></li>
+      <li><a href="{% url 'clubs:clubs' %}">Clubs &amp; Sports</a></li>
+      <li><a href="{% url 'news:list' %}">Gallery &amp; News</a></li>
+    </ul>
+
+    <!-- Right Controls & 'Explore' Floating Card Trigger -->
+    <div class="nav-controls">
+      <a href="{% url 'admissions:admissions' %}" class="btn btn-yellow" style="padding: 8px 18px; font-size: 0.85rem;">Apply Now</a>
+      
+      <button class="menu-toggle-btn" id="dropdown-toggle" aria-label="Toggle Menu" aria-expanded="false">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <span>Explore</span>
+        <svg class="caret-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
       </button>
+
+      <!-- Floating Menu Card (Secondary Links & Mobile Fallback Navigation) -->
+      <div class="nav-dropdown-card" id="nav-dropdown">
+        <!-- Responsive Mobile Navigation Fallback -->
+        <div class="dropdown-section mobile-only-section">
+          <a href="{% url 'core:about' %}" class="dropdown-item">About Us</a>
+          <a href="{% url 'academics:academics' %}" class="dropdown-item">Academics</a>
+          <a href="{% url 'academics:academics' %}" class="dropdown-item">Junior School</a>
+          <a href="{% url 'clubs:clubs' %}" class="dropdown-item">Clubs &amp; Sports</a>
+          <a href="{% url 'news:list' %}" class="dropdown-item">Gallery &amp; News</a>
+        </div>
+
+        <div class="dropdown-divider mobile-only-section"></div>
+
+        <!-- Secondary Navigation Dropdown Items -->
+        <div class="dropdown-section">
+          <a href="{% url 'admissions:admissions' %}" class="dropdown-item featured">
+            <div class="dropdown-item-content">
+              <span class="dropdown-item-title">Admissions 2026</span>
+              <span class="dropdown-item-desc">Apply online or book a campus tour</span>
+            </div>
+            <div class="dropdown-badge-icon">✏️</div>
+          </a>
+        </div>
+
+        <div class="dropdown-divider"></div>
+
+        <div class="dropdown-section">
+          <a href="{% url 'core:home' %}" class="dropdown-item">Home</a>
+          <a href="{% url 'events:list' %}" class="dropdown-item">Upcoming Events</a>
+          <a href="{% url 'admissions:admissions' %}" class="dropdown-item">Book Campus Visit</a>
+        </div>
+
+        <div class="dropdown-divider"></div>
+
+        <div class="dropdown-section">
+          <a href="{% url 'contact:contact' %}" class="dropdown-item">Contact &amp; Support</a>
+        </div>
+      </div>
     </div>
-  </nav>
+  </div>
 </header>
