@@ -3,14 +3,20 @@
     <div class="footer-grid">
       <div>
         {% if site.logo %}
-          <img src="{{ site.logo.url }}" alt="{{ site.school_name }} logo" style="height: 36px; width: auto; margin-bottom: 8px; filter: brightness(0) invert(1);">
+        <div style="display:inline-block; background:#fff; padding:8px 14px; border-radius:8px; margin-bottom: 10px;">
+          <img src="{{ site.logo.url }}" alt="{{ site.school_name }} logo"
+            style="height: 32px; width: auto; max-width:160px; object-fit:contain; display:block;">
+        </div>
         {% endif %}
         <h4 style="font-family: var(--font-display); font-size: var(--fs-md); color: var(--green-light);">{{ site.school_name }}</h4>
         <p>{{ site.motto }}</p>
         <div class="social-icons">
-          {% if site.facebook_url %}<a href="{{ site.facebook_url }}" aria-label="Facebook"><i class="ti ti-brand-facebook" aria-hidden="true"></i></a>{% endif %}
-          {% if site.instagram_url %}<a href="{{ site.instagram_url }}" aria-label="Instagram"><i class="ti ti-brand-instagram" aria-hidden="true"></i></a>{% endif %}
-          {% if site.tiktok_url %}<a href="{{ site.tiktok_url }}" aria-label="TikTok"><i class="ti ti-brand-tiktok" aria-hidden="true"></i></a>{% endif %}
+          {% if site.facebook_url %}<a href="{{ site.facebook_url }}" aria-label="Facebook"><i
+              class="ti ti-brand-facebook" aria-hidden="true"></i></a>{% endif %}
+          {% if site.instagram_url %}<a href="{{ site.instagram_url }}" aria-label="Instagram"><i
+              class="ti ti-brand-instagram" aria-hidden="true"></i></a>{% endif %}
+          {% if site.tiktok_url %}<a href="{{ site.tiktok_url }}" aria-label="TikTok"><i class="ti ti-brand-tiktok"
+              aria-hidden="true"></i></a>{% endif %}
         </div>
       </div>
       <div>
