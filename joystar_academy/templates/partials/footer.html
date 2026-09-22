@@ -2,6 +2,9 @@
   <div class="container">
     <div class="footer-grid">
       <div>
+        {% if site.logo %}
+          <img src="{{ site.logo.url }}" alt="{{ site.school_name }} logo" style="height: 36px; width: auto; margin-bottom: 8px; filter: brightness(0) invert(1);">
+        {% endif %}
         <h4 style="font-family: var(--font-display); font-size: var(--fs-md); color: var(--green-light);">{{ site.school_name }}</h4>
         <p>{{ site.motto }}</p>
         <div class="social-icons">

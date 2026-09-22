@@ -7,6 +7,12 @@ class SiteSettings(models.Model):
 
     school_name = models.CharField(max_length=200, default="Carol and Kelly Joystar Academy")
     motto = models.CharField(max_length=200, default="Creating a Firm Foundation")
+    logo = models.ImageField(
+        upload_to="branding/",
+        blank=True,
+        null=True,
+        help_text="Recommended: transparent PNG or SVG-exported-as-PNG, roughly 400x120px.",
+    )
     phone = models.CharField(max_length=50, default="0700347587")
     email = models.EmailField(blank=True)
     address = models.CharField(max_length=255, default="Umoja 1 Q46, Nairobi")

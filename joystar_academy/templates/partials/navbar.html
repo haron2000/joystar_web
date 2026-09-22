@@ -2,11 +2,15 @@
   <nav class="navbar" aria-label="Main navigation">
     <div class="container">
       <a href="{% url 'core:home' %}" class="brand">
+        {% if site.logo %}
+        <img src="{{ site.logo.url }}" alt="{{ site.school_name }} logo" style="height: 40px; width: auto;">
+        {% else %}
         <span class="blk-stack">
           <span class="blk" style="background: var(--red);"></span>
           <span class="blk" style="background: var(--green); margin-left:-4px; margin-top:5px;"></span>
         </span>
         <span class="brand-name">{{ site.school_name }}</span>
+        {% endif %}
       </a>
 
       <ul class="nav-links">
@@ -18,7 +22,8 @@
         <li><a href="{% url 'events:list' %}">Events</a></li>
         <li><a href="{% url 'news:list' %}">News</a></li>
         <li><a href="{% url 'contact:contact' %}">Contact</a></li>
-        <li class="nav-cta-item"><a href="{% url 'admissions:admissions' %}" class="btn btn-outline">Book a Visit</a></li>
+        <li class="nav-cta-item"><a href="{% url 'admissions:admissions' %}" class="btn btn-outline">Book a Visit</a>
+        </li>
         <li class="nav-cta-item"><a href="{% url 'admissions:admissions' %}" class="btn btn-primary">Apply Now</a></li>
       </ul>
 
