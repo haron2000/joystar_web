@@ -4,24 +4,27 @@
 {% block extra_css %}
 <style>
 /* ==========================================================================
-   1. DESIGN SYSTEM & TOKENS
+   1. DESIGN SYSTEM & TOKENS (EXTRACTED FROM LOGO)
    ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --olive-dark: #192622;
-  --olive-card: #21332e;
-  --olive-light: #8a9a86;
-  --terracotta: #c85a32;
-  --terracotta-dark: #a34320;
-  --solar-yellow: #f1c40f;
-  --solar-yellow-hover: #d4ac0d;
-  --sand-bg: #f9f6f0;
-  --sand-card-hover: #ede8df;
-  --ink: #121e1a;
-  --text-muted: #5a6a65;
+  /* Brand Primary Palette */
+  --brand-red: #d32f2f;            /* Primary Accent / Highlight */
+  --brand-red-dark: #b71c1c;       /* Darker Crimson Hover States */
+  --brand-green: #2e7d32;          /* Open Book / Forest Green Accent */
+  --brand-green-dark: #1b5e20;    /* Dark Forest Background/Header */
+  --brand-green-card: #254a28;    /* Dark Green Card Background */
+  --brand-accent: #2e7d32;        /* Primary Accent Color */
+  --brand-accent-hover: #1b5e20;  /* Darker Accent Hover */
+  
+  /* Neutral Palette */
+  --sand-bg: #f9f8f6;             /* Clean Light Neutral */
+  --sand-card-hover: #f0ede6;
+  --ink: #111827;                 /* Deep Neutral Body Text */
+  --text-muted: #556055;
   --white: #ffffff;
-  --border-light: #e2e8e5;
+  --border-light: #e0e6e0;
 
   --font-heading: 'Fraunces', serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
@@ -69,212 +72,14 @@ h1, h2, h3, h4, h5, .font-heading {
 }
 
 /* ==========================================================================
-   2. HEADER & NAVIGATION
-   ========================================================================== */
-.site-header {
-  background: rgba(25, 38, 34, 0.98);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.navbar-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 0;
-  gap: 16px;
-}
-
-.brand-logo-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  flex-shrink: 0;
-}
-
-.brand-icon {
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
-}
-
-.brand-info {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.15;
-}
-
-.brand-title {
-  color: var(--white);
-  font-weight: 700;
-  font-size: 0.95rem;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-}
-
-.brand-tag {
-  color: var(--solar-yellow);
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-top: 2px;
-}
-
-.nav-inline-links {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  gap: 22px;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-inline-links a {
-  color: var(--white);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: color 0.2s ease;
-  white-space: nowrap;
-}
-
-.nav-inline-links a:hover {
-  color: var(--solar-yellow);
-}
-
-.nav-controls {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  position: relative;
-  flex-shrink: 0;
-}
-
-.menu-toggle-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: var(--radius-pill);
-  color: var(--white);
-  padding: 8px 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.menu-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: var(--solar-yellow);
-}
-
-.menu-toggle-btn .caret-icon {
-  transition: transform 0.2s ease;
-}
-
-.menu-toggle-btn[aria-expanded="true"] .caret-icon {
-  transform: rotate(180deg);
-}
-
-.nav-dropdown-card {
-  position: absolute;
-  top: calc(100% + 12px);
-  right: 0;
-  width: 290px;
-  background: var(--sand-bg);
-  border-radius: 18px;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
-  padding: 12px 0;
-  z-index: 1010;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-8px);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 1px solid rgba(200, 90, 50, 0.25);
-}
-
-.nav-dropdown-card.is-active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.dropdown-section { padding: 4px 0; }
-
-.dropdown-divider {
-  height: 1px;
-  background-color: rgba(18, 30, 26, 0.08);
-  margin: 6px 0;
-}
-
-.dropdown-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  color: var(--ink);
-  text-decoration: none;
-  font-size: 0.92rem;
-  font-weight: 600;
-  transition: background-color 0.15s ease, color 0.15s ease;
-}
-
-.dropdown-item:hover {
-  background-color: var(--sand-card-hover);
-  color: var(--terracotta-dark);
-}
-
-.dropdown-item.featured { padding: 12px 20px; }
-
-.dropdown-item-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.dropdown-item-title {
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: var(--ink);
-}
-
-.dropdown-item-desc {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  margin-top: 2px;
-  line-height: 1.3;
-}
-
-.dropdown-badge-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: rgba(200, 90, 50, 0.15);
-  color: var(--terracotta);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.95rem;
-}
-
-.mobile-only-section { display: none; }
-
-/* ==========================================================================
-   3. UI BADGES & BUTTONS
+   2. UI BADGES & BUTTONS
    ========================================================================== */
 .badge-pill {
   display: inline-flex;
   align-items: center;
   padding: 0.35rem 0.85rem;
-  background: #fbebe6;
-  color: var(--terracotta);
+  background: rgba(46, 125, 50, 0.12);
+  color: var(--brand-green);
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -303,46 +108,46 @@ h1, h2, h3, h4, h5, .font-heading {
   text-decoration: none;
 }
 
-.btn-terracotta {
-  background-color: var(--terracotta);
+.btn-brand-red {
+  background-color: var(--brand-red);
   color: var(--white);
 }
 
-.btn-terracotta:hover {
-  background-color: var(--terracotta-dark);
+.btn-brand-red:hover {
+  background-color: var(--brand-red-dark);
   color: var(--white);
   transform: translateY(-2px);
 }
 
-.btn-yellow {
-  background-color: var(--solar-yellow);
-  color: var(--ink);
+.btn-accent {
+  background-color: var(--brand-green);
+  color: var(--white);
 }
 
-.btn-yellow:hover {
-  background-color: var(--solar-yellow-hover);
+.btn-accent:hover {
+  background-color: var(--brand-green-dark);
   transform: translateY(-2px);
 }
 
 .btn-outline-white {
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   color: var(--white);
   background: transparent;
 }
 
 .btn-outline-white:hover {
   border-color: var(--white);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   color: var(--white);
 }
 
 /* ==========================================================================
-   4. HERO SECTION
+   3. HERO SECTION
    ========================================================================== */
 .hero-wrapper {
   position: relative;
-  background-color: var(--olive-dark);
-  background-image: linear-gradient(to right, rgba(25, 38, 34, 0.80) 30%, rgba(25, 38, 34, 0.45) 100%),
+  background-color: var(--brand-green-dark);
+  background-image: linear-gradient(to right, rgba(27, 94, 32, 0.88) 30%, rgba(27, 94, 32, 0.55) 100%),
                     url('https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1600&q=80');
   background-size: cover;
   background-position: center;
@@ -392,28 +197,34 @@ h1, h2, h3, h4, h5, .font-heading {
   box-shadow: var(--shadow-lg);
 }
 
-.hero-slider {
-  position: relative;
+.hero-slider-container {
   width: 100%;
   height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-slider-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+  will-change: transform;
 }
 
 .hero-slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.hero-slide.is-active {
-  opacity: 1;
-  z-index: 1;
+  min-width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  position: relative;
 }
 
 .hero-slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .hero-arrow {
@@ -443,10 +254,10 @@ h1, h2, h3, h4, h5, .font-heading {
 .hero-arrow.next { right: 16px; }
 
 /* ==========================================================================
-   5. MARQUEE STRIP
+   4. MARQUEE STRIP
    ========================================================================== */
 .marquee-strip {
-  background: var(--terracotta);
+  background: var(--brand-red);
   color: var(--white);
   padding: 1rem 0;
   overflow: hidden;
@@ -468,7 +279,7 @@ h1, h2, h3, h4, h5, .font-heading {
 .marquee-dot {
   width: 6px;
   height: 6px;
-  background: var(--solar-yellow);
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 50%;
   display: inline-block;
 }
@@ -479,85 +290,37 @@ h1, h2, h3, h4, h5, .font-heading {
 }
 
 /* ==========================================================================
-   6. ABOUT SECTION
+   5. ABOUT SECTION
    ========================================================================== */
 .section { padding: var(--space-xl) 0; }
 .section-tint { background-color: var(--white); }
 
 .about-grid {
   display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
+  grid-template-columns: 1fr 1fr;
   gap: 3.5rem;
   align-items: center;
 }
 
 .about-visual-wrapper {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.25rem;
-  padding: 1rem 0;
+  width: 100%;
 }
 
-.about-pill-frame {
-  border-radius: 140px;
+.about-single-image-frame {
+  width: 100%;
+  height: 480px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  border: 1px solid var(--border-light);
 }
 
-.about-pill-frame.large {
-  width: 260px;
-  height: 380px;
-}
-
-.about-pill-frame.small {
-  width: 210px;
-  height: 320px;
-  margin-top: 2rem;
-}
-
-.about-pill-frame img {
+.about-single-image-frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.experience-starburst {
-  position: absolute;
-  top: 15%;
-  left: 45%;
-  transform: translate(-50%, -50%);
-  width: 90px;
-  height: 90px;
-  background: var(--solar-yellow);
-  clip-path: polygon(
-    50% 0%, 61% 11%, 75% 4%, 79% 19%, 94% 20%, 90% 35%, 100% 44%,
-    91% 55%, 97% 69%, 83% 73%, 82% 88%, 68% 86%, 60% 98%,
-    48% 90%, 36% 98%, 30% 84%, 16% 85%, 18% 70%, 5% 64%,
-    12% 51%, 2% 38%, 15% 31%, 13% 16%, 28% 18%, 34% 4%, 46% 12%
-  );
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #000;
-  text-align: center;
-  font-weight: 800;
-  line-height: 1.05;
-  z-index: 3;
-  box-shadow: var(--shadow-md);
-}
-
-.experience-starburst span.num {
-  font-size: 1.25rem;
-  letter-spacing: -0.02em;
-}
-
-.experience-starburst span.label {
-  font-size: 0.62rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 .about-content-heading {
@@ -600,7 +363,7 @@ h1, h2, h3, h4, h5, .font-heading {
   font-family: var(--font-body);
   font-size: 2.25rem;
   font-weight: 800;
-  color: #111827;
+  color: var(--brand-red);
   line-height: 1;
   margin-bottom: 0.4rem;
 }
@@ -613,7 +376,7 @@ h1, h2, h3, h4, h5, .font-heading {
 
 .vision-box {
   background: var(--sand-bg);
-  border-left: 4px solid var(--terracotta);
+  border-left: 4px solid var(--brand-green);
   padding: 1.25rem 1.5rem;
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
@@ -633,7 +396,7 @@ h1, h2, h3, h4, h5, .font-heading {
 }
 
 /* ==========================================================================
-   7. CHOOSE US SECTION (VISUAL IMAGE CARDS)
+   6. WHY CHOOSE US SECTION
    ========================================================================== */
 .why-choose-section {
   background-color: var(--sand-bg);
@@ -642,50 +405,31 @@ h1, h2, h3, h4, h5, .font-heading {
   overflow: hidden;
 }
 
-.why-choose-layout {
-  display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  gap: 3.5rem;
-  align-items: start;
+.why-header-area {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 3rem auto;
 }
 
-.why-sticky-summary {
-  position: sticky;
-  top: 100px;
-  background: var(--olive-dark);
-  color: var(--white);
-  padding: 3rem 2.5rem;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  border-bottom: 6px solid var(--terracotta);
-  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-.why-sticky-summary .badge-pill {
-  background: rgba(255, 255, 255, 0.12);
-  color: var(--solar-yellow);
-}
-
-.why-sticky-summary h2 {
+.why-header-area h2 {
   font-size: 2.6rem;
   font-weight: 700;
   line-height: 1.15;
-  color: var(--white);
-  margin: 0.5rem 0 1.25rem 0;
+  color: var(--ink);
+  margin: 0.5rem 0 1rem 0;
 }
 
-.why-sticky-summary p {
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 1.02rem;
+.why-header-area p {
+  color: var(--text-muted);
+  font-size: 1.05rem;
   line-height: 1.65;
-  margin-bottom: 2rem;
+  margin: 0;
 }
 
-.why-cards-grid {
+.why-cards-grid-redesign {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
 
 .why-card {
@@ -701,7 +445,7 @@ h1, h2, h3, h4, h5, .font-heading {
 
 .why-card-thumb {
   width: 100%;
-  height: 140px;
+  height: 160px;
   object-fit: cover;
   display: block;
 }
@@ -716,7 +460,7 @@ h1, h2, h3, h4, h5, .font-heading {
 .why-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-md);
-  border-color: rgba(200, 90, 50, 0.3);
+  border-color: rgba(211, 47, 47, 0.3);
 }
 
 .why-card h3 {
@@ -735,10 +479,10 @@ h1, h2, h3, h4, h5, .font-heading {
 }
 
 /* ==========================================================================
-   8. ACADEMIC PATHWAYS SECTION (FEATURED PHOTO CARDS)
+   7. ACADEMIC PATHWAYS SECTION
    ========================================================================== */
 .section-dark-olive {
-  background-color: var(--olive-dark);
+  background-color: var(--brand-green-dark);
   position: relative;
   background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 32px 32px;
@@ -770,8 +514,8 @@ h1, h2, h3, h4, h5, .font-heading {
 }
 
 .pathway-card {
-  background: var(--olive-card);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--brand-green-card);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-md);
   overflow: hidden;
   display: flex;
@@ -799,16 +543,16 @@ h1, h2, h3, h4, h5, .font-heading {
   position: absolute;
   top: 12px;
   right: 12px;
-  background: rgba(25, 38, 34, 0.85);
+  background: rgba(27, 94, 32, 0.9);
   backdrop-filter: blur(4px);
-  color: var(--solar-yellow);
+  color: var(--white);
   font-size: 0.72rem;
   font-weight: 700;
   padding: 4px 12px;
   border-radius: var(--radius-pill);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border: 1px solid rgba(241, 196, 15, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .pathway-card-body {
@@ -821,7 +565,7 @@ h1, h2, h3, h4, h5, .font-heading {
 
 .pathway-card:hover {
   transform: translateY(-8px);
-  border-color: var(--solar-yellow);
+  border-color: var(--white);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
 }
 
@@ -861,12 +605,12 @@ h1, h2, h3, h4, h5, .font-heading {
 
 .pathway-highlights li::before {
   content: '✓';
-  color: var(--solar-yellow);
+  color: var(--white);
   font-weight: 800;
 }
 
 /* ==========================================================================
-   9. CLUBS & CO-CURRICULAR SECTION (IMAGE CARDS WITH FOOTER BARS)
+   8. CLUBS & CO-CURRICULAR SECTION (CLEAN HIGH-RES IMAGES)
    ========================================================================== */
 .clubs-gallery-grid {
   display: grid;
@@ -890,7 +634,7 @@ h1, h2, h3, h4, h5, .font-heading {
 .club-visual-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-md);
-  border-color: rgba(200, 90, 50, 0.3);
+  border-color: rgba(211, 47, 47, 0.3);
 }
 
 .club-card-bg {
@@ -902,7 +646,7 @@ h1, h2, h3, h4, h5, .font-heading {
 }
 
 .club-visual-card:hover .club-card-bg {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
 .club-card-label-bar {
@@ -910,9 +654,9 @@ h1, h2, h3, h4, h5, .font-heading {
   bottom: 14px;
   left: 14px;
   right: 14px;
-  background: rgba(25, 38, 34, 0.92);
+  background: rgba(27, 94, 32, 0.92);
   backdrop-filter: blur(6px);
-  border-left: 4px solid var(--solar-yellow);
+  border-left: 4px solid var(--brand-red);
   padding: 12px 14px;
   border-radius: var(--radius-sm);
   display: flex;
@@ -931,65 +675,108 @@ h1, h2, h3, h4, h5, .font-heading {
 }
 
 /* ==========================================================================
-   10. OUR PROMISE SECTION
+   9. REDESIGNED "OUR PROMISE" SECTION
    ========================================================================== */
 .promise-band {
-  background: var(--olive-dark);
-  color: var(--white);
+  background: var(--sand-bg);
+  color: var(--ink);
   padding: var(--space-xl) 0;
   position: relative;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 32px 32px;
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .promise-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
   margin-top: 2.5rem;
 }
 
 .promise-card {
-  background: var(--olive-card);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--white);
+  border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
   padding: 2rem 1.5rem;
   position: relative;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow-sm);
+}
+
+.promise-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--brand-green);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  transition: background 0.3s ease;
+}
+
+.promise-card:nth-child(2n)::before {
+  background: var(--brand-red);
 }
 
 .promise-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--terracotta);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(46, 125, 50, 0.25);
+}
+
+.promise-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.promise-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(46, 125, 50, 0.1);
+  color: var(--brand-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.promise-card:nth-child(2n) .promise-icon-wrap {
+  background: rgba(211, 47, 47, 0.1);
+  color: var(--brand-red);
 }
 
 .promise-num {
   font-family: var(--font-heading);
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--solar-yellow);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #9ca3af;
   line-height: 1;
-  margin-bottom: 0.75rem;
 }
 
 .promise-card h3 {
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--white);
+  color: var(--ink);
   margin: 0 0 0.5rem 0;
+  font-family: var(--font-heading);
 }
 
 .promise-card p {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.75);
-  line-height: 1.5;
+  color: var(--text-muted);
+  line-height: 1.6;
   margin: 0;
 }
 
 /* ==========================================================================
-   11. NEWS & EVENTS SECTION
+   10. NEWS & EVENTS SECTION
    ========================================================================== */
 .news-events-section {
   background: var(--white);
@@ -1020,20 +807,20 @@ h1, h2, h3, h4, h5, .font-heading {
 .editorial-preview-card:hover {
   transform: translateX(4px);
   box-shadow: var(--shadow-md);
-  border-color: rgba(200, 90, 50, 0.3);
+  border-color: rgba(211, 47, 47, 0.3);
 }
 
 .editorial-preview-thumb {
   width: 100%;
   height: 110px;
-  background: var(--olive-dark);
+  background: var(--brand-green-dark);
   border-radius: var(--radius-sm);
   background-size: cover;
   background-position: center;
 }
 
 .preview-date {
-  color: var(--terracotta);
+  color: var(--brand-red);
   font-size: 0.78rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -1056,19 +843,19 @@ h1, h2, h3, h4, h5, .font-heading {
 }
 
 /* ==========================================================================
-   12. ADMISSIONS CTA BANNER
+   11. ADMISSIONS CTA BANNER
    ========================================================================== */
 .cta-band {
   border-radius: var(--radius-lg);
   padding: 3.5rem 3rem;
-  background-color: var(--olive-dark);
+  background-color: var(--brand-green-dark);
   box-shadow: var(--shadow-lg);
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: var(--space-md);
   flex-wrap: wrap;
-  border-left: 8px solid var(--terracotta);
+  border-left: 8px solid var(--brand-red);
   background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
   background-size: 24px 24px;
 }
@@ -1076,7 +863,7 @@ h1, h2, h3, h4, h5, .font-heading {
 .cta-band h2 { color: var(--white); font-size: 2.25rem; margin: 0 0 0.5rem 0; }
 
 /* ==========================================================================
-   13. FAQS, CONTACT & LOCATION SECTION
+   12. FAQS, CONTACT & LOCATION SECTION
    ========================================================================== */
 .contact-faq-section {
   background-color: var(--sand-bg);
@@ -1123,7 +910,7 @@ h1, h2, h3, h4, h5, .font-heading {
   content: '+';
   font-family: var(--font-body);
   font-size: 1.3rem;
-  color: var(--terracotta);
+  color: var(--brand-red);
   font-weight: 700;
 }
 
@@ -1166,12 +953,12 @@ h1, h2, h3, h4, h5, .font-heading {
 }
 
 .contact-info-item strong {
-  color: var(--olive-dark);
+  color: var(--brand-green-dark);
   min-width: 70px;
 }
 
 .contact-info-item a {
-  color: var(--terracotta);
+  color: var(--brand-red);
   text-decoration: none;
   font-weight: 600;
 }
@@ -1189,93 +976,9 @@ h1, h2, h3, h4, h5, .font-heading {
 }
 
 /* ==========================================================================
-   14. SITE FOOTER
-   ========================================================================== */
-.site-footer {
-  background-color: var(--olive-dark);
-  color: rgba(255, 255, 255, 0.8);
-  padding: 4rem 0 2rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 0.9rem;
-}
-
-.footer-top {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 2.5rem;
-  margin-bottom: 3rem;
-}
-
-.footer-brand p {
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 0.88rem;
-  margin-top: 0.75rem;
-  line-height: 1.6;
-  max-width: 300px;
-}
-
-.footer-column h4 {
-  color: var(--white);
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin: 0 0 1.25rem 0;
-}
-
-.footer-links {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-}
-
-.footer-links a {
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.footer-links a:hover {
-  color: var(--solar-yellow);
-}
-
-.footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 1.75rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.footer-bottom-links {
-  display: flex;
-  gap: 1.25rem;
-}
-
-.footer-bottom-links a {
-  color: rgba(255, 255, 255, 0.5);
-  text-decoration: none;
-}
-
-.footer-bottom-links a:hover {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-/* ==========================================================================
-   15. MEDIA QUERIES
+   13. MEDIA QUERIES (HOME SPECIFIC)
    ========================================================================== */
 @media (max-width: 1024px) {
-  .nav-inline-links { display: none; }
-  .mobile-only-section { display: block; }
-
   .hero {
     grid-template-columns: 1fr;
     text-align: center;
@@ -1298,20 +1001,15 @@ h1, h2, h3, h4, h5, .font-heading {
     gap: var(--space-lg);
   }
 
-  .about-visual-wrapper { margin-bottom: 1.5rem; }
-
-  .why-choose-layout {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .why-sticky-summary {
-    position: relative;
-    top: 0;
-    padding: 2.5rem 1.75rem;
+  .why-cards-grid-redesign {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .clubs-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .promise-cards-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -1320,56 +1018,24 @@ h1, h2, h3, h4, h5, .font-heading {
     gap: var(--space-lg);
   }
 
-  .footer-top {
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-
   .section-title { font-size: 2.25rem; }
   .hero-copy h1 { font-size: 2.8rem; }
 }
 
 @media (max-width: 640px) {
-  .navbar-container { padding: 10px 0; }
-
-  .brand-title {
-    font-size: 0.88rem;
-    max-width: 140px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .nav-dropdown-card {
-    width: calc(100vw - 2.5rem);
-    right: 0;
-  }
-
   .hero-portrait-frame-wide { height: 320px; }
   .hero-copy h1 { font-size: 2.2rem; }
   .about-content-heading { font-size: 2.1rem; }
 
-  .about-visual-wrapper {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .about-pill-frame.large, .about-pill-frame.small {
-    width: 100%;
-    max-width: 280px;
-    height: 300px;
-    margin-top: 0;
-  }
-
-  .experience-starburst {
-    top: 50%;
-    left: 50%;
+  .about-single-image-frame {
+    height: 320px;
   }
 
   .about-stats-grid {
     grid-template-columns: 1fr;
   }
 
-  .why-cards-grid {
+  .why-cards-grid-redesign {
     grid-template-columns: 1fr;
   }
 
@@ -1394,56 +1060,53 @@ h1, h2, h3, h4, h5, .font-heading {
   .editorial-preview-card {
     grid-template-columns: 1fr;
   }
-
-  .footer-top {
-    grid-template-columns: 1fr;
-  }
-
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-  }
 }
 </style>
 {% endblock %}
 
 {% block content %}
 
-<!-- HERO SECTION -->
+
+<!-- 2. HERO SECTION -->
 <section class="hero-wrapper">
   <div class="container">
     <div class="hero">
       <div class="hero-copy">
-        <div class="badge-pill badge-pill-light">• Welcome to {{ site.school_name }}</div>
-        <h1>Shaping Global<br><em style="color: var(--solar-yellow); font-style: italic;">Leaders For Tomorrow</em></h1>
-        <p style="font-family: var(--font-heading); font-style: italic; color: var(--solar-yellow); font-size: 1.25rem; margin-bottom: 0.5rem;">
-          {{ site.motto }}
+        <div class="badge-pill badge-pill-light">• Welcome to {{ site.school_name|default:"Carol & Kelly Joystar Academy" }}</div>
+        <h1>Shaping Global<br><em style="color: var(--white); font-style: italic;">Leaders For Tomorrow</em></h1>
+        <p style="font-family: var(--font-heading); font-style: italic; color: rgba(255,255,255,0.9); font-size: 1.25rem; margin-bottom: 0.5rem;">
+          {{ site.motto|default:"Creating a firm foundation" }}
         </p>
-        <p>{{ site.mission }}</p>
+        <p>{{ site.mission|default:"Nurturing lifelong learners through quality education, holistic character building, and innovative skills." }}</p>
         <div class="hero-actions">
-          <a href="{% url 'admissions:admissions' %}" class="btn btn-terracotta">Apply Now</a>
+          <a href="{% url 'admissions:admissions' %}" class="btn btn-brand-red">Apply Now</a>
           <a href="{% url 'admissions:admissions' %}" class="btn btn-outline-white">Book a Visit</a>
         </div>
       </div>
 
       <div class="hero-image-wrap">
         <div class="hero-portrait-frame-wide">
-          <div class="hero-slider" data-hero-slider>
-            {% for slide in hero_slides %}
-              <div class="hero-slide {% if forloop.first %}is-active{% endif %}">
-                {% if slide.image %}
-                  <img src="{{ slide.image.url }}" alt="{{ slide.caption }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
-                {% else %}
-                  <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=1200&q=80" alt="{{ slide.caption }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
-                {% endif %}
-              </div>
-            {% empty %}
-              <div class="hero-slide is-active">
-                <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=1200&q=80" alt="Students learning in class" loading="eager">
-              </div>
-            {% endfor %}
-            <button class="hero-arrow prev" aria-label="Previous slide"><i class="ti ti-chevron-left"></i></button>
-            <button class="hero-arrow next" aria-label="Next slide"><i class="ti ti-chevron-right"></i></button>
+          <div class="hero-slider-container" id="hero-slider-container">
+            <div class="hero-slider-track" id="hero-slider-track">
+              {% for slide in hero_slides %}
+                <div class="hero-slide">
+                  {% if slide.image %}
+                    <img src="{{ slide.image.url }}" alt="{{ slide.caption }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+                  {% else %}
+                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=1200&q=80" alt="{{ slide.caption }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+                  {% endif %}
+                </div>
+              {% empty %}
+                <div class="hero-slide">
+                  <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=1200&q=80" alt="Students learning in class" loading="eager">
+                </div>
+                <div class="hero-slide">
+                  <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&q=80" alt="Classroom activities" loading="lazy">
+                </div>
+              {% endfor %}
+            </div>
+            <button class="hero-arrow prev" id="hero-prev-btn" aria-label="Previous slide"><i class="ti ti-chevron-left"></i></button>
+            <button class="hero-arrow next" id="hero-next-btn" aria-label="Next slide"><i class="ti ti-chevron-right"></i></button>
           </div>
         </div>
       </div>
@@ -1465,19 +1128,12 @@ h1, h2, h3, h4, h5, .font-heading {
   </div>
 </div>
 
-<!-- ABOUT US SECTION -->
+<!-- 3. ABOUT US SECTION -->
 <section class="section section-tint reveal">
   <div class="container about-grid">
     <div class="about-visual-wrapper">
-      <div class="about-pill-frame large">
-        <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&q=80" alt="Teacher interacting with young learner">
-      </div>
-      <div class="experience-starburst">
-        <span class="num">10+</span>
-        <span class="label">Years</span>
-      </div>
-      <div class="about-pill-frame small">
-        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80" alt="Learners in modern classroom">
+      <div class="about-single-image-frame">
+        <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=1200&q=80" alt="Teacher guiding primary students in learning activity">
       </div>
     </div>
 
@@ -1513,71 +1169,68 @@ h1, h2, h3, h4, h5, .font-heading {
   </div>
 </section>
 
-<!-- WHY CHOOSE US SECTION (CARD IMAGE REPLACEMENT) -->
+<!-- 4. WHY CHOOSE US SECTION -->
 <section class="why-choose-section reveal">
   <div class="container">
-    <div class="why-choose-layout">
-      <div class="why-sticky-summary">
-        <div class="badge-pill">Why Choose Us</div>
-        <h2>Everything your child needs to thrive</h2>
-        <p>We combine academic rigor with holistic development to ensure every learner gains confidence, critical thinking skills, and strong moral values.</p>
-        <a href="{% url 'admissions:admissions' %}" class="btn btn-yellow" style="width: 100%;">Enroll Your Child Today</a>
+    <div class="why-header-area">
+      <div class="badge-pill">Why Choose Us</div>
+      <h2>Everything Your Child Needs to Thrive</h2>
+      <p>We combine academic rigor with holistic development to ensure every learner gains confidence, critical thinking skills, and strong moral values in a supportive environment.</p>
+    </div>
+
+    <div class="why-cards-grid-redesign">
+      <div class="why-card">
+        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&q=80" alt="Competency-Based Curriculum" class="why-card-thumb">
+        <div class="why-card-body">
+          <h3>Competency-Based Curriculum</h3>
+          <p>CBC-aligned learning framework from Playgroup to Junior School.</p>
+        </div>
       </div>
 
-      <div class="why-cards-grid">
-        <div class="why-card">
-          <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&q=80" alt="Competency-Based Curriculum" class="why-card-thumb">
-          <div class="why-card-body">
-            <h3>Competency-Based Curriculum</h3>
-            <p>CBC-aligned learning framework from Playgroup to Junior School.</p>
-          </div>
+      <div class="why-card">
+        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=500&q=80" alt="Qualified Teachers" class="why-card-thumb">
+        <div class="why-card-body">
+          <h3>Qualified Teachers</h3>
+          <p>Experienced, caring and passionate educators guiding every child.</p>
         </div>
+      </div>
 
-        <div class="why-card">
-          <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=500&q=80" alt="Qualified Teachers" class="why-card-thumb">
-          <div class="why-card-body">
-            <h3>Qualified Teachers</h3>
-            <p>Experienced, caring and passionate educators guiding every child.</p>
-          </div>
+      <div class="why-card">
+        <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?w=500&q=80" alt="Small Class Sizes" class="why-card-thumb">
+        <div class="why-card-body">
+          <h3>Small Class Sizes</h3>
+          <p>Focused attention to ensure tailored support for every learner.</p>
         </div>
+      </div>
 
-        <div class="why-card">
-          <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?w=500&q=80" alt="Small Class Sizes" class="why-card-thumb">
-          <div class="why-card-body">
-            <h3>Small Class Sizes</h3>
-            <p>Focused attention to ensure tailored support for every learner.</p>
-          </div>
+      <div class="why-card">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500&q=80" alt="Modern ICT" class="why-card-thumb">
+        <div class="why-card-body">
+          <h3>Modern ICT</h3>
+          <p>Well-equipped computer labs providing digital literacy skills.</p>
         </div>
+      </div>
 
-        <div class="why-card">
-          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500&q=80" alt="Modern ICT" class="why-card-thumb">
-          <div class="why-card-body">
-            <h3>Modern ICT</h3>
-            <p>Well-equipped computer labs providing digital literacy skills.</p>
-          </div>
+      <div class="why-card">
+        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=500&q=80" alt="Coding & Robotics" class="why-card-thumb">
+        <div class="why-card-body">
+          <h3>Coding &amp; Robotics</h3>
+          <p>Hands-on STEM projects and programming from early stages.</p>
         </div>
+      </div>
 
-        <div class="why-card">
-          <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=500&q=80" alt="Coding & Robotics" class="why-card-thumb">
-          <div class="why-card-body">
-            <h3>Coding &amp; Robotics</h3>
-            <p>Hands-on STEM projects and programming from early stages.</p>
-          </div>
-        </div>
-
-        <div class="why-card">
-          <img src="https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?w=500&q=80" alt="Safe Environment" class="why-card-thumb">
-          <div class="why-card-body">
-            <h3>Safe Environment</h3>
-            <p>A secure, nurturing and friendly campus atmosphere.</p>
-          </div>
+      <div class="why-card">
+        <img src="https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?w=500&q=80" alt="Safe Environment" class="why-card-thumb">
+        <div class="why-card-body">
+          <h3>Safe Environment</h3>
+          <p>A secure, nurturing and friendly campus atmosphere.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ACADEMIC PATHWAYS SECTION (FEATURED PHOTO CARDS) -->
+<!-- ACADEMIC PATHWAYS SECTION -->
 <section class="section section-dark-olive reveal">
   <div class="container text-center">
     <div class="badge-pill badge-pill-light">Academic Pathways</div>
@@ -1663,11 +1316,11 @@ h1, h2, h3, h4, h5, .font-heading {
       {% endfor %}
     </div>
 
-    <a href="{% url 'academics:academics' %}" class="btn btn-yellow">Explore Full Curriculum Details</a>
+    <a href="{% url 'academics:academics' %}" class="btn btn-brand-red">Explore Full Curriculum Details</a>
   </div>
 </section>
 
-<!-- CLUBS & CO-CURRICULAR SECTION -->
+<!-- 5. CLUBS & CO-CURRICULAR SECTION -->
 <section class="section reveal">
   <div class="container">
     <div class="section-head">
@@ -1682,7 +1335,7 @@ h1, h2, h3, h4, h5, .font-heading {
           {% if club.image %}
             <img src="{{ club.image.url }}" alt="{{ club.name }}" class="club-card-bg">
           {% else %}
-            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&q=80" alt="{{ club.name }}" class="club-card-bg">
+            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80" alt="{{ club.name }}" class="club-card-bg">
           {% endif %}
           <div class="club-card-label-bar">
             <h3>{{ club.name }}</h3>
@@ -1690,79 +1343,95 @@ h1, h2, h3, h4, h5, .font-heading {
         </a>
       {% empty %}
         <a href="{% url 'clubs:clubs' %}" class="club-visual-card">
-          <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&q=80" alt="Music & Performing Arts" class="club-card-bg">
+          <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80" alt="Music & Performing Arts" class="club-card-bg">
           <div class="club-card-label-bar">
             <h3>Music &amp; Performing Arts</h3>
           </div>
         </a>
 
         <a href="{% url 'clubs:clubs' %}" class="club-visual-card">
-          <img src="https://images.unsplash.com/photo-1529699211952-734e80c4d42b?w=600&q=80" alt="Chess Club" class="club-card-bg">
+          <img src="https://images.unsplash.com/photo-1586165368502-1bad197a6461?w=800&q=80" alt="Chess & Strategy Club" class="club-card-bg">
           <div class="club-card-label-bar">
-            <h3>Chess Club</h3>
+            <h3>Chess &amp; Strategy</h3>
           </div>
         </a>
 
         <a href="{% url 'clubs:clubs' %}" class="club-visual-card">
-          <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=80" alt="Robotics Team" class="club-card-bg">
+          <img src="https://images.unsplash.com/photo-1567168544813-cc03465b4fa8?w=800&q=80" alt="Science & Robotics Club" class="club-card-bg">
           <div class="club-card-label-bar">
-            <h3>Robotics Team</h3>
+            <h3>STEM &amp; Robotics</h3>
           </div>
         </a>
 
         <a href="{% url 'clubs:clubs' %}" class="club-visual-card">
-          <img src="https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?w=600&q=80" alt="Athletics & Games" class="club-card-bg">
+          <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&q=80" alt="Sports & Athletics" class="club-card-bg">
           <div class="club-card-label-bar">
-            <h3>Athletics &amp; Games</h3>
+            <h3>Sports &amp; Athletics</h3>
           </div>
         </a>
       {% endfor %}
     </div>
     
     <div style="text-align: center; margin-top: 2.5rem;">
-      <a href="{% url 'clubs:clubs' %}" class="btn btn-terracotta">View All Clubs &amp; Activities</a>
+      <a href="{% url 'clubs:clubs' %}" class="btn btn-brand-red">View All Clubs &amp; Activities</a>
     </div>
   </div>
 </section>
 
-<!-- OUR PROMISE SECTION -->
+<!-- 6. REDESIGNED OUR PROMISE SECTION -->
 <section class="section promise-band reveal">
   <div class="container">
     <div class="section-head" style="margin-bottom: 0;">
-      <div class="badge-pill badge-pill-light" style="color: var(--solar-yellow);">Our Promise</div>
-      <h2 class="section-title text-white">Guiding Principles for Every Learner</h2>
+      <div class="badge-pill">Our Commitment</div>
+      <h2 class="section-title">Guiding Principles for Every Learner</h2>
+      <p style="color: var(--text-muted); margin-top: 0.5rem; font-size: 0.95rem;">Our core pillars that shape school culture and guide student growth daily.</p>
     </div>
 
     <div class="promise-cards-grid">
       {% for item in promise_items %}
         <div class="promise-card">
-          <div class="promise-num">0{{ forloop.counter }}</div>
+          <div class="promise-card-header">
+            <div class="promise-icon-wrap"><i class="ti ti-star"></i></div>
+            <span class="promise-num">0{{ forloop.counter }}</span>
+          </div>
           <h3>{{ item.title|default:"Core Value" }}</h3>
           <p>{{ item.text }}</p>
         </div>
       {% empty %}
         <div class="promise-card">
-          <div class="promise-num">01</div>
+          <div class="promise-card-header">
+            <div class="promise-icon-wrap"><i class="ti ti-school"></i></div>
+            <span class="promise-num">01</span>
+          </div>
           <h3>Holistic Excellence</h3>
-          <p>Nurturing physical, intellectual, and emotional growth in every student.</p>
+          <p>Nurturing intellectual, creative, and physical capabilities in balanced measure.</p>
         </div>
 
         <div class="promise-card">
-          <div class="promise-num">02</div>
+          <div class="promise-card-header">
+            <div class="promise-icon-wrap"><i class="ti ti-shield-check"></i></div>
+            <span class="promise-num">02</span>
+          </div>
           <h3>Safe Environment</h3>
-          <p>Providing a secure, encouraging atmosphere where children dare to explore.</p>
+          <p>Providing a supportive, secure space where students explore with confidence.</p>
         </div>
 
         <div class="promise-card">
-          <div class="promise-num">03</div>
+          <div class="promise-card-header">
+            <div class="promise-icon-wrap"><i class="ti ti-device-laptop"></i></div>
+            <span class="promise-num">03</span>
+          </div>
           <h3>Future-Ready Skills</h3>
-          <p>Integrating STEM, coding, and modern digital literacy from early childhood.</p>
+          <p>Integrating STEM, digital literacy, and modern coding tools into early education.</p>
         </div>
 
         <div class="promise-card">
-          <div class="promise-num">04</div>
+          <div class="promise-card-header">
+            <div class="promise-icon-wrap"><i class="ti ti-heart-handshake"></i></div>
+            <span class="promise-num">04</span>
+          </div>
           <h3>Character &amp; Integrity</h3>
-          <p>Instilling strong moral values, empathy, and responsible global citizenship.</p>
+          <p>Instilling strong moral values, leadership habits, and community responsibility.</p>
         </div>
       {% endfor %}
     </div>
@@ -1776,7 +1445,7 @@ h1, h2, h3, h4, h5, .font-heading {
       <div>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1.5rem;">
           <div class="badge-pill" style="margin:0;">Upcoming Events</div>
-          <a href="{% url 'events:list' %}" style="color: var(--terracotta); font-weight:700; font-size: 0.9rem; text-decoration:none;">View all →</a>
+          <a href="{% url 'events:list' %}" style="color: var(--brand-red); font-weight:700; font-size: 0.9rem; text-decoration:none;">View all →</a>
         </div>
         {% for event in upcoming_events %}
           <a href="{{ event.get_absolute_url }}" class="editorial-preview-card">
@@ -1810,7 +1479,7 @@ h1, h2, h3, h4, h5, .font-heading {
       <div>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1.5rem;">
           <div class="badge-pill" style="margin:0;">Latest News</div>
-          <a href="{% url 'news:list' %}" style="color: var(--terracotta); font-weight:700; font-size: 0.9rem; text-decoration:none;">View all →</a>
+          <a href="{% url 'news:list' %}" style="color: var(--brand-red); font-weight:700; font-size: 0.9rem; text-decoration:none;">View all →</a>
         </div>
         {% for post in latest_news %}
           <a href="{{ post.get_absolute_url }}" class="editorial-preview-card">
@@ -1852,7 +1521,7 @@ h1, h2, h3, h4, h5, .font-heading {
         <h2>Admissions are open for 2026</h2>
         <p style="margin:0; color: rgba(255,255,255,0.85); font-size: 1.05rem;">Playgroup through Junior School — book a visit or apply today.</p>
       </div>
-      <a href="{% url 'admissions:admissions' %}" class="btn btn-yellow">Apply Now</a>
+      <a href="{% url 'admissions:admissions' %}" class="btn btn-accent">Apply Now</a>
     </div>
   </div>
 </section>
@@ -1861,7 +1530,6 @@ h1, h2, h3, h4, h5, .font-heading {
 <section class="contact-faq-section reveal">
   <div class="container">
     <div class="contact-faq-grid">
-      <!-- FAQ Column -->
       <div>
         <div class="badge-pill">Help &amp; Info</div>
         <h2 class="section-title" style="margin-bottom: 1.5rem;">Frequently Asked Questions</h2>
@@ -1883,7 +1551,6 @@ h1, h2, h3, h4, h5, .font-heading {
         </div>
       </div>
 
-      <!-- Contact Info & Map Column -->
       <div>
         <div class="badge-pill">Get in Touch</div>
         <h2 class="section-title" style="margin-bottom: 1.5rem;">Visit or contact us</h2>
@@ -1912,7 +1579,7 @@ h1, h2, h3, h4, h5, .font-heading {
           </iframe>
 
           <div>
-            <a href="{% url 'contact:contact' %}" class="btn btn-terracotta" style="width: 100%;">Send a Direct Message</a>
+            <a href="{% url 'contact:contact' %}" class="btn btn-brand-red" style="width: 100%;">Send a Direct Message</a>
           </div>
         </div>
       </div>
@@ -1922,12 +1589,12 @@ h1, h2, h3, h4, h5, .font-heading {
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/slideshow.js' %}" defer></script>
 <script src="{% static 'js/reveal.js' %}" defer></script>
 <script src="{% static 'js/counters.js' %}" defer></script>
 <script src="{% static 'js/testimonials.js' %}" defer></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // 1. Navigation Dropdown Toggle
     const toggleBtn = document.getElementById('dropdown-toggle');
     const dropdownCard = document.getElementById('nav-dropdown');
 
@@ -1945,6 +1612,102 @@ h1, h2, h3, h4, h5, .font-heading {
           toggleBtn.setAttribute('aria-expanded', 'false');
         }
       });
+    }
+
+    // 2. Responsive Touch & Autoplay Hero Carousel
+    const container = document.getElementById('hero-slider-container');
+    const track = document.getElementById('hero-slider-track');
+    const prevBtn = document.getElementById('hero-prev-btn');
+    const nextBtn = document.getElementById('hero-next-btn');
+
+    if (track && container) {
+      const slides = track.querySelectorAll('.hero-slide');
+      const totalSlides = slides.length;
+      let currentIndex = 0;
+      let autoPlayTimer = null;
+      let startX = 0;
+      let currentTranslate = 0;
+      let prevTranslate = 0;
+      let isDragging = false;
+
+      function updateSlidePosition() {
+        currentTranslate = -currentIndex * 100;
+        prevTranslate = currentTranslate;
+        track.style.transform = `translateX(${currentTranslate}%)`;
+      }
+
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateSlidePosition();
+      }
+
+      function prevSlide() {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateSlidePosition();
+      }
+
+      function startAutoplay() {
+        stopAutoplay();
+        if (totalSlides > 1) {
+          autoPlayTimer = setInterval(nextSlide, 5000);
+        }
+      }
+
+      function stopAutoplay() {
+        if (autoPlayTimer) clearInterval(autoPlayTimer);
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+          nextSlide();
+          startAutoplay();
+        });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+          prevSlide();
+          startAutoplay();
+        });
+      }
+
+      // Touch & Drag Support
+      container.addEventListener('touchstart', function(e) {
+        stopAutoplay();
+        isDragging = true;
+        startX = e.touches[0].clientX;
+      }, { passive: true });
+
+      container.addEventListener('touchmove', function(e) {
+        if (!isDragging) return;
+        const currentX = e.touches[0].clientX;
+        const diffX = currentX - startX;
+        const containerWidth = container.offsetWidth;
+        const movePercent = (diffX / containerWidth) * 100;
+        track.style.transform = `translateX(${prevTranslate + movePercent}%)`;
+      }, { passive: true });
+
+      container.addEventListener('touchend', function(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        const endX = e.changedTouches[0].clientX;
+        const diffX = endX - startX;
+
+        if (diffX < -50) {
+          nextSlide();
+        } else if (diffX > 50) {
+          prevSlide();
+        } else {
+          updateSlidePosition();
+        }
+        startAutoplay();
+      });
+
+      // Pause autoplay on mouse hover
+      container.addEventListener('mouseenter', stopAutoplay);
+      container.addEventListener('mouseleave', startAutoplay);
+
+      startAutoplay();
     }
   });
 </script>

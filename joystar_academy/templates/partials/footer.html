@@ -1,59 +1,182 @@
-<!-- SITE FOOTER -->
+{% load static %}
+
+<style>
+  /* ==========================================================================
+     SITE FOOTER
+     ========================================================================== */
+  .site-footer {
+    background-color: var(--brand-green-dark, #1b5e20);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 4rem 0 2rem 0;
+    border-top: 3px solid var(--brand-red, #d32f2f);
+    font-size: 0.9rem;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-brand-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-logo-img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 50%;
+    background: var(--white, #ffffff);
+    padding: 2px;
+  }
+
+  .footer-brand h3 {
+    color: var(--white, #ffffff);
+    font-size: 1.05rem;
+    margin: 0;
+    font-family: var(--font-heading, 'Fraunces', serif);
+  }
+
+  .footer-brand p {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.88rem;
+    margin-top: 0.75rem;
+    line-height: 1.6;
+    max-width: 300px;
+  }
+
+  .footer-column h4 {
+    color: var(--white, #ffffff);
+    font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 1.25rem 0;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--white, #ffffff);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .footer-bottom-links {
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .footer-bottom-links a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+  }
+
+  .footer-bottom-links a:hover {
+    color: var(--white, #ffffff);
+  }
+
+  @media (max-width: 1024px) {
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .footer-top {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>
+
+<!-- SITE FOOTER WITH LOGO -->
 <footer class="site-footer">
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <a href="{% url 'core:home' %}" class="brand-logo-link">
-          <svg class="brand-icon" viewBox="0 0 32 32" fill="none">
-            <rect x="2" y="14" width="10" height="10" rx="3" fill="#c85a32"/>
-            <rect x="8" y="8" width="10" height="10" rx="3" fill="#ffffff"/>
-            <rect x="14" y="2" width="10" height="10" rx="3" fill="#f1c40f"/>
-          </svg>
-          <div class="brand-info">
-            <span class="brand-title">{{ site.school_name }}</span>
-            <span class="brand-tag">Junior School</span>
+        <div class="footer-brand-header">
+          {% if site.logo %}
+            <img src="{{ site.logo.url }}" alt="{{ site.school_name }} Logo" class="footer-logo-img">
+          {% else %}
+            <img src="{% static 'img/logo.png' %}" alt="Carol and Kelly Joystar Academy Logo" class="footer-logo-img">
+          {% endif %}
+          <div>
+            <h3>{{ site.school_name|default:"Carol & Kelly Joystar Academy" }}</h3>
           </div>
-        </a>
-        <p>Shaping confident, responsible, and globally competitive learners through quality CBC education.</p>
+        </div>
+        <p>{{ site.mission|default:"Nurturing confident, creative, and responsible future leaders through quality early foundation education." }}</p>
       </div>
 
       <div class="footer-column">
-        <h4>Navigation</h4>
+        <h4>Quick Links</h4>
         <ul class="footer-links">
-          <li><a href="{% url 'core:about' %}">About Us</a></li>
+          <li><a href="/">Home</a></li>
           <li><a href="{% url 'academics:academics' %}">Academics</a></li>
-          <li><a href="{% url 'clubs:clubs' %}">Clubs &amp; Activities</a></li>
-          <li><a href="{% url 'news:list' %}">News &amp; Gallery</a></li>
+          <li><a href="{% url 'admissions:admissions' %}">Admissions</a></li>
+          <li><a href="{% url 'clubs:clubs' %}">Clubs &amp; Sports</a></li>
         </ul>
       </div>
 
       <div class="footer-column">
-        <h4>Admissions</h4>
+        <h4>Academics</h4>
         <ul class="footer-links">
-          <li><a href="{% url 'admissions:admissions' %}">Application Process</a></li>
-          <li><a href="{% url 'admissions:admissions' %}">Fee Structure</a></li>
-          <li><a href="{% url 'admissions:admissions' %}">Book Campus Tour</a></li>
-          <li><a href="{% url 'contact:contact' %}">Contact Office</a></li>
+          <li><a href="{% url 'academics:academics' %}">Playgroup &amp; Kindergarten</a></li>
+          <li><a href="{% url 'academics:academics' %}">Primary School (CBC)</a></li>
+          <li><a href="{% url 'academics:academics' %}">Junior Secondary School</a></li>
+          <li><a href="{% url 'academics:academics' %}">STEM &amp; ICT Program</a></li>
         </ul>
       </div>
 
       <div class="footer-column">
-        <h4>Quick Support</h4>
+        <h4>Contact</h4>
         <ul class="footer-links">
           <li><a href="tel:{{ site.phone }}">{{ site.phone|default:"+254 700 000 000" }}</a></li>
           <li><a href="mailto:{{ site.email }}">{{ site.email|default:"info@school.ac.ke" }}</a></li>
-          <li><a href="{% url 'contact:contact' %}">FAQ Center</a></li>
-          <li><a href="{% url 'contact:contact' %}">Location Map</a></li>
+          <li><a href="{% url 'contact:contact' %}">Campus Location</a></li>
         </ul>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <div>&copy; {% now "Y" %} {{ site.school_name }}. All rights reserved.</div>
+      <div>&copy; {% now "Y" %} {{ site.school_name|default:"Carol and Kelly Joystar Academy" }}. All rights reserved.</div>
       <div class="footer-bottom-links">
         <a href="#">Privacy Policy</a>
-        <a href="#">Terms &amp; Conditions</a>
-        <a href="#">Portal</a>
+        <a href="#">Terms of Service</a>
       </div>
     </div>
   </div>
